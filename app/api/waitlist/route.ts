@@ -7,7 +7,15 @@ type WaitlistPayload = {
   role?: unknown;
   handle?: unknown;
   survey?: unknown;
+  referralSource?: unknown;
+  platforms?: unknown;
+  platformOther?: unknown;
 };
+
+const REFERRAL_SOURCES = ["ad", "referral", "other"] as const;
+const PLATFORMS = ["twitter", "instagram", "other"] as const;
+type ReferralSource = (typeof REFERRAL_SOURCES)[number];
+type Platform = (typeof PLATFORMS)[number];
 
 const MX_TIMEOUT_MS = 1500;
 
@@ -66,6 +74,17 @@ export async function POST(request: Request) {
   const role = typeof payload.role === "string" ? payload.role : "";
   const handle = typeof payload.handle === "string" ? payload.handle.trim() : "";
   const survey = Boolean(payload.survey);
+  const referralSource =
+    typeof payload.referralSource === "string" ? payload.referralSource : "";
+  const platformsRaw = Array.isArray(payload.platforms) ? payload.platforms : [];
+  const platforms = platformsRaw.filter(
+    (v): v is Platform =>
+      typeof v === "string" && (PLATFORMS as readonly string[]).includes(v),
+  );
+  const platformOther =
+    typeof payload.platformOther === "string"
+      ? payload.platformOther.trim()
+      : "";
 
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return NextResponse.json(
@@ -77,6 +96,28 @@ export async function POST(request: Request) {
   if (!["host", "joiner", "both"].includes(role)) {
     return NextResponse.json(
       { status: "error", error: "invalid role" },
+      { status: 400 },
+    );
+  }
+
+  if (!(REFERRAL_SOURCES as readonly string[]).includes(referralSource)) {
+    return NextResponse.json(
+      { status: "invalid_referral", error: "invalid referral source" },
+      { status: 400 },
+    );
+  }
+
+  if (platforms.length === 0 || platforms.length !== platformsRaw.length) {
+    return NextResponse.json(
+      { status: "invalid_platforms", error: "invalid platforms" },
+      { status: 400 },
+    );
+  }
+
+  const includesOther = platforms.includes("other");
+  if (includesOther && !platformOther) {
+    return NextResponse.json(
+      { status: "missing_platform_other", error: "platform_other required" },
       { status: 400 },
     );
   }
@@ -123,6 +164,9 @@ export async function POST(request: Request) {
     role: role as WaitlistRole,
     handle: handle || null,
     survey,
+    referral_source: referralSource as ReferralSource,
+    platforms,
+    platform_other: includesOther ? platformOther : null,
   });
 
   if (insertError) {

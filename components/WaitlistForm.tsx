@@ -7,6 +7,20 @@ import {
 } from "./WaitlistCounterView";
 
 type Role = "host" | "joiner" | "both";
+type ReferralSource = "ad" | "referral" | "other";
+type Platform = "twitter" | "instagram" | "other";
+
+const REFERRAL_OPTIONS: { value: ReferralSource; label: string }[] = [
+  { value: "ad", label: "광고" },
+  { value: "referral", label: "지인 소개" },
+  { value: "other", label: "기타" },
+];
+
+const PLATFORM_OPTIONS: { value: Platform; label: string }[] = [
+  { value: "twitter", label: "트위터" },
+  { value: "instagram", label: "인스타" },
+  { value: "other", label: "기타" },
+];
 
 type SubmitState =
   | { status: "idle" }
@@ -26,6 +40,9 @@ type ApiResponse = {
     | "duplicate"
     | "invalid_email"
     | "invalid_domain"
+    | "invalid_referral"
+    | "invalid_platforms"
+    | "missing_platform_other"
     | "error";
   count?: number;
   position?: number;
@@ -47,6 +64,15 @@ function formatDate(iso: string) {
 
 export function WaitlistForm() {
   const [state, setState] = useState<SubmitState>({ status: "idle" });
+  const [referralSource, setReferralSource] = useState<ReferralSource | "">("");
+  const [platforms, setPlatforms] = useState<Platform[]>([]);
+  const [platformOther, setPlatformOther] = useState("");
+
+  function togglePlatform(p: Platform) {
+    setPlatforms((prev) =>
+      prev.includes(p) ? prev.filter((x) => x !== p) : [...prev, p],
+    );
+  }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -63,13 +89,44 @@ export function WaitlistForm() {
       return;
     }
 
+    if (!referralSource) {
+      setState({ status: "error", message: "유입 경로를 선택해주세요." });
+      return;
+    }
+
+    if (platforms.length === 0) {
+      setState({
+        status: "error",
+        message: "현재 사용 중인 플랫폼을 1개 이상 선택해주세요.",
+      });
+      return;
+    }
+
+    const includesOther = platforms.includes("other");
+    const platformOtherTrimmed = platformOther.trim();
+    if (includesOther && !platformOtherTrimmed) {
+      setState({
+        status: "error",
+        message: "기타 플랫폼을 입력해주세요.",
+      });
+      return;
+    }
+
     setState({ status: "submitting" });
 
     try {
       const res = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, role, handle, survey }),
+        body: JSON.stringify({
+          email,
+          role,
+          handle,
+          survey,
+          referralSource,
+          platforms,
+          platformOther: includesOther ? platformOtherTrimmed : "",
+        }),
       });
 
       const body = (await res.json().catch(() => ({}))) as ApiResponse;
@@ -80,7 +137,13 @@ export function WaitlistForm() {
             ? "이메일 도메인을 다시 확인해주세요. 메일을 받을 수 없는 주소예요."
             : body.status === "invalid_email"
               ? "이메일 형식이 올바르지 않아요."
-              : "신청 처리 중 오류가 발생했어요.";
+              : body.status === "invalid_referral"
+                ? "유입 경로를 선택해주세요."
+                : body.status === "invalid_platforms"
+                  ? "현재 사용 중인 플랫폼을 1개 이상 선택해주세요."
+                  : body.status === "missing_platform_other"
+                    ? "기타 플랫폼을 입력해주세요."
+                    : "신청 처리 중 오류가 발생했어요.";
         setState({ status: "error", message });
         return;
       }
@@ -214,7 +277,63 @@ export function WaitlistForm() {
         </div>
       </div>
 
-      <div className="bg-brand-50 border border-brand-100 rounded-xl p-4">
+      <div>
+        <span className="block text-sm font-medium text-slate-700 mb-2">
+          유입 경로 <span className="text-rose-500">*</span>
+        </span>
+        <div className="grid grid-cols-3 gap-2 role-pill">
+          {REFERRAL_OPTIONS.map((opt) => (
+            <label key={opt.value} className="cursor-pointer">
+              <input
+                type="radio"
+                name="referralSource"
+                value={opt.value}
+                checked={referralSource === opt.value}
+                onChange={() => setReferralSource(opt.value)}
+                className="sr-only"
+              />
+              <span className="block text-center text-sm py-3 rounded-xl border border-slate-300 font-medium">
+                {opt.label}
+              </span>
+            </label>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <span className="block text-sm font-medium text-slate-700 mb-2">
+          현재 사용 플랫폼 <span className="text-rose-500">*</span>
+          <span className="ml-1 text-xs font-normal text-slate-500">(중복 선택 가능)</span>
+        </span>
+        <div className="grid grid-cols-3 gap-2 role-pill">
+          {PLATFORM_OPTIONS.map((opt) => (
+            <label key={opt.value} className="cursor-pointer">
+              <input
+                type="checkbox"
+                name="platforms"
+                value={opt.value}
+                checked={platforms.includes(opt.value)}
+                onChange={() => togglePlatform(opt.value)}
+                className="sr-only"
+              />
+              <span className="block text-center text-sm py-3 rounded-xl border border-slate-300 font-medium">
+                {opt.label}
+              </span>
+            </label>
+          ))}
+        </div>
+        {platforms.includes("other") && (
+          <input
+            type="text"
+            value={platformOther}
+            onChange={(e) => setPlatformOther(e.target.value)}
+            placeholder="어떤 플랫폼인가요? (예: 디스코드, 오픈채팅)"
+            className="mt-2 w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
+          />
+        )}
+      </div>
+
+      <div className="hidden bg-brand-50 border border-brand-100 rounded-xl p-4">
         <label className="flex items-start gap-3 cursor-pointer">
           <input
             id="survey"
