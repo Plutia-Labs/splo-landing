@@ -8,6 +8,7 @@ create table if not exists public.waitlist (
   handle text,
   survey boolean not null default false,
   referral_source text check (referral_source in ('ad', 'referral', 'other')),
+  referral_other text,
   platforms text[],
   platform_other text,
   created_at timestamptz not null default now()
@@ -21,5 +22,10 @@ alter table public.waitlist enable row level security;
 -- 기존 운영 DB에는 아래 ALTER를 Supabase SQL Editor에서 1회 실행
 alter table public.waitlist
   add column if not exists referral_source text check (referral_source in ('ad', 'referral', 'other')),
+  add column if not exists referral_other text,
   add column if not exists platforms text[],
   add column if not exists platform_other text;
+
+
+alter table public.waitlist
+  add column if not exists referral_other text;

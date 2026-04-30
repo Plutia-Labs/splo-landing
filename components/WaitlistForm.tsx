@@ -41,6 +41,7 @@ type ApiResponse = {
     | "invalid_email"
     | "invalid_domain"
     | "invalid_referral"
+    | "missing_referral_other"
     | "invalid_platforms"
     | "missing_platform_other"
     | "error";
@@ -65,6 +66,7 @@ function formatDate(iso: string) {
 export function WaitlistForm() {
   const [state, setState] = useState<SubmitState>({ status: "idle" });
   const [referralSource, setReferralSource] = useState<ReferralSource | "">("");
+  const [referralOther, setReferralOther] = useState("");
   const [platforms, setPlatforms] = useState<Platform[]>([]);
   const [platformOther, setPlatformOther] = useState("");
 
@@ -79,7 +81,10 @@ export function WaitlistForm() {
     const form = event.currentTarget;
     const data = new FormData(form);
     const email = String(data.get("email") ?? "").trim();
-    const role = String(data.get("role") ?? "host") as Role;
+    const roleRaw = String(data.get("role") ?? "");
+    const role = (["host", "joiner", "both"].includes(roleRaw)
+      ? (roleRaw as Role)
+      : "") as Role | "";
     const handle = String(data.get("handle") ?? "").trim();
     const survey = data.get("survey") === "on";
 
@@ -89,8 +94,23 @@ export function WaitlistForm() {
       return;
     }
 
+    if (!role) {
+      setState({ status: "error", message: "역할을 선택해주세요." });
+      return;
+    }
+
     if (!referralSource) {
       setState({ status: "error", message: "유입 경로를 선택해주세요." });
+      return;
+    }
+
+    const includesReferralOther = referralSource === "other";
+    const referralOtherTrimmed = referralOther.trim();
+    if (includesReferralOther && !referralOtherTrimmed) {
+      setState({
+        status: "error",
+        message: "유입 경로 기타를 입력해주세요.",
+      });
       return;
     }
 
@@ -124,6 +144,7 @@ export function WaitlistForm() {
           handle,
           survey,
           referralSource,
+          referralOther: includesReferralOther ? referralOtherTrimmed : "",
           platforms,
           platformOther: includesOther ? platformOtherTrimmed : "",
         }),
@@ -139,11 +160,13 @@ export function WaitlistForm() {
               ? "이메일 형식이 올바르지 않아요."
               : body.status === "invalid_referral"
                 ? "유입 경로를 선택해주세요."
-                : body.status === "invalid_platforms"
-                  ? "현재 사용 중인 플랫폼을 1개 이상 선택해주세요."
-                  : body.status === "missing_platform_other"
-                    ? "기타 플랫폼을 입력해주세요."
-                    : "신청 처리 중 오류가 발생했어요.";
+                : body.status === "missing_referral_other"
+                  ? "유입 경로 기타를 입력해주세요."
+                  : body.status === "invalid_platforms"
+                    ? "현재 사용 중인 플랫폼을 1개 이상 선택해주세요."
+                    : body.status === "missing_platform_other"
+                      ? "기타 플랫폼을 입력해주세요."
+                      : "신청 처리 중 오류가 발생했어요.";
         setState({ status: "error", message });
         return;
       }
@@ -186,7 +209,9 @@ export function WaitlistForm() {
         <p className="text-sm text-emerald-800">
           출시 소식을 입력해주신 이메일로 보내드릴게요.
           <br />
-          가까운 분들에게 splo를 알려주시면 더 빨리 선보일 수 있어요.
+          가까운 분들에게{" "}
+          <strong className="font-bold text-emerald-900">스플로</strong>를
+          알려주시면 더 빨리 선보일 수 있어요.
         </p>
       </div>
     );
@@ -257,7 +282,7 @@ export function WaitlistForm() {
         </span>
         <div className="grid grid-cols-3 gap-2 role-pill">
           <label className="cursor-pointer">
-            <input type="radio" name="role" value="host" className="sr-only" defaultChecked />
+            <input type="radio" name="role" value="host" className="sr-only" />
             <span className="block text-center text-sm py-3 rounded-xl border border-slate-300 font-medium">
               총대
             </span>
@@ -298,6 +323,15 @@ export function WaitlistForm() {
             </label>
           ))}
         </div>
+        {referralSource === "other" && (
+          <input
+            type="text"
+            value={referralOther}
+            onChange={(e) => setReferralOther(e.target.value)}
+            placeholder="어떻게 알게 되셨나요?"
+            className="mt-2 w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
+          />
+        )}
       </div>
 
       <div>
