@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-50: #F0F9FF;
+  --color-brand-100: #E0F2FE;
+  --color-brand-300: #BAE6FD;
+  --color-brand-500: #7DD3FC;
+  --color-brand-600: #38BDF8;
+  --color-brand-700: #0EA5E9;
+  --color-brand-900: #0C4A6E;
+  --color-accent-300: #FFC4D5;
+  --color-accent-500: #FF8FB1;
+  --color-accent-600: #FF6F9B;
+  --color-accent-700: #E84F84;
+  --color-ink: #0F172A;
+  --color-paper: #FAFAFA;
+
+  --font-sans: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+
+  --radius-2xl: 1rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: var(--color-paper);
+  -webkit-font-smoothing: antialiased;
+}
+
+.nav-shadow {
+  box-shadow: 0 1px 0 rgba(15, 23, 42, 0.06);
+}
+
+details > summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+details[open] .faq-icon {
+  transform: rotate(45deg);
+}
+
+.faq-icon {
+  transition: transform 0.2s ease;
+}
+
+.cta-btn {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.cta-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(14, 165, 233, 0.35);
+}
+
+.phone-frame {
+  box-shadow:
+    0 30px 60px -20px rgba(15, 23, 42, 0.25),
+    0 12px 24px -12px rgba(15, 23, 42, 0.15);
+}
+
+.role-pill input:checked + span {
+  background: #d2f1fe;
+  color: #0f172a;
+  border-color: #38bdf8;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #38bdf8 0%, #ff8fb1 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
