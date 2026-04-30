@@ -1,13 +1,16 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import {
+  WAITLIST_COUNT_EVENT,
+  type WaitlistCountEventDetail,
+} from "./WaitlistCounterView";
 
 type Role = "host" | "joiner" | "both";
 
 type SubmitState =
   | { status: "idle" }
   | { status: "submitting" }
-  | { status: "success"; count: number }
   | { status: "error"; message: string };
 
 export function WaitlistForm() {
@@ -47,7 +50,13 @@ export function WaitlistForm() {
       }
 
       const body = (await res.json()) as { count?: number };
-      setState({ status: "success", count: body.count ?? 0 });
+      const count = body.count ?? 0;
+      window.dispatchEvent(
+        new CustomEvent<WaitlistCountEventDetail>(WAITLIST_COUNT_EVENT, {
+          detail: { count },
+        }),
+      );
+      setState({ status: "idle" });
     } catch (err) {
       console.error("[WaitlistForm] submit failed", err);
       setState({
@@ -55,25 +64,6 @@ export function WaitlistForm() {
         message: "네트워크 오류로 신청에 실패했어요. 잠시 후 다시 시도해주세요.",
       });
     }
-  }
-
-  if (state.status === "success") {
-    return (
-      <div className="mt-8 text-center">
-        <div className="inline-flex w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 items-center justify-center text-2xl">
-          ✓
-        </div>
-        <h3 className="mt-4 text-xl font-bold">신청 완료!</h3>
-        <p className="mt-2 text-slate-600">
-          출시 시 메일로 초대해드릴게요. 설문조사 체크해주신 분께는 별도로 설문 폼 메일 드려요.
-        </p>
-        {state.count > 0 && (
-          <p className="mt-4 text-xs text-slate-500">
-            현재까지 {state.count}명이 사전 신청했어요.
-          </p>
-        )}
-      </div>
-    );
   }
 
   return (
