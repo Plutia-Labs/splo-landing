@@ -65,6 +65,7 @@ function formatDate(iso: string) {
 
 export function WaitlistForm() {
   const [state, setState] = useState<SubmitState>({ status: "idle" });
+  const [role, setRole] = useState<Role | "">("");
   const [referralSource, setReferralSource] = useState<ReferralSource | "">("");
   const [referralOther, setReferralOther] = useState("");
   const [platforms, setPlatforms] = useState<Platform[]>([]);
@@ -81,10 +82,6 @@ export function WaitlistForm() {
     const form = event.currentTarget;
     const data = new FormData(form);
     const email = String(data.get("email") ?? "").trim();
-    const roleRaw = String(data.get("role") ?? "");
-    const role = (["host", "joiner", "both"].includes(roleRaw)
-      ? (roleRaw as Role)
-      : "") as Role | "";
     const handle = String(data.get("handle") ?? "").trim();
     const survey = data.get("survey") === "on";
 
@@ -282,19 +279,40 @@ export function WaitlistForm() {
         </span>
         <div className="grid grid-cols-3 gap-2 role-pill">
           <label className="cursor-pointer">
-            <input type="radio" name="role" value="host" className="sr-only" />
+            <input
+              type="radio"
+              name="role"
+              value="host"
+              checked={role === "host"}
+              onChange={() => setRole("host")}
+              className="sr-only"
+            />
             <span className="block text-center text-sm py-3 rounded-xl border border-slate-300 font-medium">
               총대
             </span>
           </label>
           <label className="cursor-pointer">
-            <input type="radio" name="role" value="joiner" className="sr-only" />
+            <input
+              type="radio"
+              name="role"
+              value="joiner"
+              checked={role === "joiner"}
+              onChange={() => setRole("joiner")}
+              className="sr-only"
+            />
             <span className="block text-center text-sm py-3 rounded-xl border border-slate-300 font-medium">
               분철자
             </span>
           </label>
           <label className="cursor-pointer">
-            <input type="radio" name="role" value="both" className="sr-only" />
+            <input
+              type="radio"
+              name="role"
+              value="both"
+              checked={role === "both"}
+              onChange={() => setRole("both")}
+              className="sr-only"
+            />
             <span className="block text-center text-sm py-3 rounded-xl border border-slate-300 font-medium">
               둘 다
             </span>
