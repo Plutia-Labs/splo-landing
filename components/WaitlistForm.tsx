@@ -8,7 +8,7 @@ import {
 
 type Role = "host" | "joiner" | "both";
 type ReferralSource = "ad" | "referral" | "other";
-type Platform = "twitter" | "instagram" | "other";
+type Platform = "twitter" | "bunjang" | "other";
 
 const REFERRAL_OPTIONS: { value: ReferralSource; label: string }[] = [
   { value: "ad", label: "광고" },
@@ -18,7 +18,7 @@ const REFERRAL_OPTIONS: { value: ReferralSource; label: string }[] = [
 
 const PLATFORM_OPTIONS: { value: Platform; label: string }[] = [
   { value: "twitter", label: "트위터" },
-  { value: "instagram", label: "인스타" },
+  { value: "bunjang", label: "번개장터" },
   { value: "other", label: "기타" },
 ];
 

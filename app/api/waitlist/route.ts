@@ -14,7 +14,7 @@ type WaitlistPayload = {
 };
 
 const REFERRAL_SOURCES = ["ad", "referral", "other"] as const;
-const PLATFORMS = ["twitter", "instagram", "other"] as const;
+const PLATFORMS = ["twitter", "bunjang", "other"] as const;
 type ReferralSource = (typeof REFERRAL_SOURCES)[number];
 type Platform = (typeof PLATFORMS)[number];
 
