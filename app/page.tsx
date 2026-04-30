@@ -39,7 +39,7 @@ function Nav() {
       <div className="mx-auto max-w-6xl px-5 h-16 flex items-center justify-between">
         <a href="#top" className="flex items-center gap-2">
           <Image
-            src="/img/15-icon.png"
+            src="/img/splo-icon.png"
             alt="스플로 로고"
             width={40}
             height={40}
@@ -694,7 +694,7 @@ function Footer() {
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-sm text-slate-500">
           <div className="flex items-center gap-2">
             <Image
-              src="/img/15-icon.png"
+              src="/img/splo-icon.png"
               alt="스플로 로고"
               width={32}
               height={32}

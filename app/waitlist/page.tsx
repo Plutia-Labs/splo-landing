@@ -12,7 +12,7 @@ export default function WaitlistPage() {
         <div className="mx-auto max-w-3xl px-5 h-16 flex items-center justify-between">
           <a href="/" className="flex items-center gap-2">
             <Image
-              src="/img/15-icon.png"
+              src="/img/splo-icon.png"
               alt="스플로 로고"
               width={40}
               height={40}
@@ -61,7 +61,7 @@ export default function WaitlistPage() {
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-sm text-slate-500">
             <div className="flex items-center gap-2">
               <Image
-                src="/img/15-icon.png"
+                src="/img/splo-icon.png"
                 alt="스플로 로고"
                 width={32}
                 height={32}
