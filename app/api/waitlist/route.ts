@@ -8,6 +8,7 @@ type WaitlistPayload = {
   handle?: unknown;
   survey?: unknown;
   referralSource?: unknown;
+  referralOther?: unknown;
   platforms?: unknown;
   platformOther?: unknown;
 };
@@ -17,7 +18,7 @@ const PLATFORMS = ["twitter", "instagram", "other"] as const;
 type ReferralSource = (typeof REFERRAL_SOURCES)[number];
 type Platform = (typeof PLATFORMS)[number];
 
-const MX_TIMEOUT_MS = 1500;
+const MX_TIMEOUT_MS = 5000;
 
 async function hasValidMxRecord(email: string): Promise<boolean> {
   const domain = email.split("@")[1]?.toLowerCase();
@@ -33,7 +34,7 @@ async function hasValidMxRecord(email: string): Promise<boolean> {
         timeoutId = setTimeout(() => resolve(timeoutSentinel), MX_TIMEOUT_MS);
       }),
     ]);
-    if (result === timeoutSentinel) return true;
+    if (result === timeoutSentinel) return false;
     return Array.isArray(result) && result.length > 0;
   } catch {
     return false;
@@ -76,6 +77,10 @@ export async function POST(request: Request) {
   const survey = Boolean(payload.survey);
   const referralSource =
     typeof payload.referralSource === "string" ? payload.referralSource : "";
+  const referralOther =
+    typeof payload.referralOther === "string"
+      ? payload.referralOther.trim()
+      : "";
   const platformsRaw = Array.isArray(payload.platforms) ? payload.platforms : [];
   const platforms = platformsRaw.filter(
     (v): v is Platform =>
@@ -103,6 +108,14 @@ export async function POST(request: Request) {
   if (!(REFERRAL_SOURCES as readonly string[]).includes(referralSource)) {
     return NextResponse.json(
       { status: "invalid_referral", error: "invalid referral source" },
+      { status: 400 },
+    );
+  }
+
+  const includesReferralOther = referralSource === "other";
+  if (includesReferralOther && !referralOther) {
+    return NextResponse.json(
+      { status: "missing_referral_other", error: "referral_other required" },
       { status: 400 },
     );
   }
@@ -165,6 +178,7 @@ export async function POST(request: Request) {
     handle: handle || null,
     survey,
     referral_source: referralSource as ReferralSource,
+    referral_other: includesReferralOther ? referralOther : null,
     platforms,
     platform_other: includesOther ? platformOther : null,
   });
