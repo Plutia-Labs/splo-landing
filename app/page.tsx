@@ -28,6 +28,7 @@ export default function HomePage() {
       <Comparison />
       <Waitlist />
       <FAQ />
+      <PaymentNotice />
       <Footer />
     </>
   );
@@ -103,20 +104,6 @@ function Hero() {
             </a>
           </div>
 
-          <div className="mt-8 bg-white border border-slate-200 rounded-2xl p-4 text-sm text-slate-600">
-            <div className="flex items-start gap-2">
-              <span className="text-accent-600 mt-0.5">★</span>
-              <div>
-                <p className="font-semibold text-ink">
-                  결제 안전·환불 보장은 <u>약속하지 않습니다.</u>
-                </p>
-                <p className="mt-1">
-                  결제는 트위터 DM·계좌이체 그대로. 우리는 그 흐름의 운영 부담만 줄여드립니다. 추가 기능은 사용자
-                  충분히 모인 뒤 도입할게요.
-                </p>
-              </div>
-            </div>
-          </div>
         </div>
 
         <PhoneMockup />
@@ -679,6 +666,29 @@ function FAQ() {
               <p className="mt-3 text-sm text-slate-600 leading-relaxed">{f.a}</p>
             </details>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PaymentNotice() {
+  return (
+    <section className="py-12 bg-white border-t border-slate-200">
+      <div className="mx-auto max-w-3xl px-5">
+        <div className="bg-paper border border-slate-200 rounded-2xl p-5 text-sm text-slate-600">
+          <div className="flex items-start gap-2">
+            <span className="text-accent-600 mt-0.5">★</span>
+            <div>
+              <p className="font-semibold text-ink">
+                결제 안전·환불 보장은 <u>약속하지 않습니다.</u>
+              </p>
+              <p className="mt-1">
+                결제는 트위터 DM·계좌이체 그대로. 우리는 그 흐름의 운영 부담만 줄여드립니다. 추가 기능은 사용자
+                충분히 모인 뒤 도입할게요.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
