@@ -79,3 +79,94 @@ details[open] .faq-icon {
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(28px);
+  will-change: opacity, transform;
+}
+
+[data-in-view="true"] > .fade-up,
+[data-in-view="true"] .fade-up,
+.fade-up[data-in-view="true"] {
+  animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+[data-in-view="true"] .fade-up.stagger-1 { animation-delay: 0.08s; }
+[data-in-view="true"] .fade-up.stagger-2 { animation-delay: 0.18s; }
+[data-in-view="true"] .fade-up.stagger-3 { animation-delay: 0.28s; }
+[data-in-view="true"] .fade-up.stagger-4 { animation-delay: 0.38s; }
+[data-in-view="true"] .fade-up.stagger-5 { animation-delay: 0.48s; }
+
+@keyframes notifyBurst {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translate(0, 0) scale(0.6);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) scale(1);
+  }
+}
+
+.notify-burst[data-in-view="true"] {
+  animation: notifyBurst 1.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+@keyframes pulseRing {
+  0% {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) scale(0.6);
+  }
+  80% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2.4);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2.4);
+  }
+}
+
+.pulse-ring[data-in-view="true"] {
+  animation: pulseRing 2s ease-out infinite;
+}
+
+@keyframes floatY {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.float-y {
+  animation: floatY 4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up,
+  .fade-up[data-in-view="true"],
+  .notify-burst[data-in-view="true"],
+  .pulse-ring[data-in-view="true"],
+  .float-y {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
