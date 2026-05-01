@@ -42,7 +42,7 @@ export default function WaitlistPage() {
                 먼저 써보고, 같이 만들어요.
               </h1>
               <p className="mt-3 text-slate-600">
-                현재 ~ 2026년 8월 사이 베타로 운영합니다.
+                2026년 베타로 운영합니다.
                 <br />
                 이메일 남겨주시면 출시 시 우선 초대해드려요.
               </p>

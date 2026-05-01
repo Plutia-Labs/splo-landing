@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import { WaitlistCounter } from "@/components/WaitlistCounter";
 import { Feature1Create } from "@/components/sections/Feature1Create";
 import { Feature2Apply } from "@/components/sections/Feature2Apply";
@@ -19,7 +19,6 @@ export default function HomePage() {
       <Feature4Verify />
       <Waitlist />
       <FAQ />
-      <PaymentNotice />
       <Footer />
     </>
   );
@@ -40,13 +39,6 @@ function Nav() {
           />
           <span className="font-semibold text-ink">스플로</span>
         </a>
-        <nav className="hidden md:flex items-center gap-7 text-sm text-slate-600">
-          <a href="#create" className="hover:text-ink">분철 만들기</a>
-          <a href="#apply" className="hover:text-ink">신청받기</a>
-          <a href="#operate" className="hover:text-ink">운영</a>
-          <a href="#verify" className="hover:text-ink">인증</a>
-          <a href="#faq" className="hover:text-ink">FAQ</a>
-        </nav>
         <div className="flex items-center gap-3">
           <a
             href="/waitlist"
@@ -61,171 +53,82 @@ function Nav() {
   );
 }
 
-function Hero() {
-  return (
-    <section id="top" className="relative overflow-hidden">
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-brand-50 to-paper" />
-      <div className="mx-auto max-w-6xl px-5 pt-16 pb-20 md:pt-24 md:pb-28 grid md:grid-cols-2 gap-12 items-center">
-        <div>
-          <span className="inline-flex items-center gap-2 bg-white border border-slate-200 text-slate-600 text-xs px-3 py-1 rounded-full">
-            <span className="w-2 h-2 rounded-full bg-accent-500" />
-            분철 총대를 위한 운영 도구
-          </span>
-          <h1 className="mt-5 text-4xl md:text-5xl font-bold tracking-tight text-ink leading-[1.15]">
-            분철은 트위터에서,
-            <br />
-            운영은 <span className="gradient-text">스플로</span>에서.
-          </h1>
-
-          <PainChipsFlow />
-
-          <div className="mt-8 flex flex-wrap gap-3">
-            <a
-              href="/waitlist"
-              className="cta-btn inline-flex items-center gap-2 bg-brand-500 text-ink font-semibold px-5 py-3 rounded-xl"
-            >
-              사전 신청하고 우선 초대받기
-              <ArrowRight size={16} />
-            </a>
-            <a
-              href="#create"
-              className="cta-btn inline-flex items-center gap-2 bg-white border border-slate-200 text-ink font-semibold px-5 py-3 rounded-xl"
-            >
-              기능 둘러보기
-            </a>
-          </div>
-
-        </div>
-
-        <PhoneMockup />
-      </div>
-    </section>
-  );
-}
-
-const PAIN_CHIPS = [
+const PAIN_POINTS = [
   { icon: "📝", label: "모집글 재작성" },
   { icon: "📋", label: "명단 정리" },
   { icon: "💬", label: "DM 뒤지기" },
   { icon: "📤", label: "N번 복붙" },
+  { icon: "💸", label: "입금 확인" },
+  { icon: "📦", label: "송장 안내" },
+  { icon: "🔁", label: "주소 수정 응대" },
+  { icon: "🧾", label: "정산 정리" },
 ];
 
-function PainChipsFlow() {
+function PainConveyor() {
   return (
-    <div className="mt-6">
-      <div className="grid grid-cols-2 md:flex md:flex-wrap gap-2">
-        {PAIN_CHIPS.map((chip) => (
+    <div
+      aria-hidden
+      className="mx-auto w-full max-w-[640px] md:max-w-[760px] overflow-hidden pointer-events-none"
+    >
+      <div className="conveyor flex gap-2 whitespace-nowrap w-max">
+        {[...PAIN_POINTS, ...PAIN_POINTS, ...PAIN_POINTS].map((p, i) => (
           <span
-            key={chip.label}
-            className="inline-flex items-center gap-1.5 bg-slate-100 text-slate-500 text-sm px-3 py-1.5 rounded-full line-through decoration-slate-400/60"
+            key={i}
+            className="inline-flex items-center gap-1.5 bg-white/70 backdrop-blur border border-slate-200 text-slate-500 text-sm px-3 py-1.5 rounded-full"
           >
-            <span className="not-italic no-underline">{chip.icon}</span>
-            {chip.label}
+            <span>{p.icon}</span>
+            <span className="line-through decoration-slate-400/60">{p.label}</span>
           </span>
         ))}
       </div>
-      <div className="mt-4 flex items-center gap-3">
-        <ArrowRight className="text-brand-500 shrink-0" size={24} />
-        <p className="text-lg text-ink font-semibold">
-          그거 다 우리가 대신 해드릴게요.
-        </p>
-      </div>
     </div>
   );
 }
 
-function PhoneMockup() {
+function Hero() {
   return (
-    <div className="relative mx-auto w-[280px] md:w-[320px]">
-      <div className="phone-frame bg-slate-900 rounded-[44px] p-3">
-        <div className="bg-white rounded-[34px] overflow-hidden">
-          <div className="px-5 pt-5 pb-3 flex items-center justify-between">
-            <div className="text-xs text-slate-500">splo.io/abc123</div>
-            <div className="flex gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-slate-300" />
-              <span className="w-1.5 h-1.5 rounded-full bg-slate-300" />
-              <span className="w-1.5 h-1.5 rounded-full bg-slate-300" />
-            </div>
-          </div>
-          <div className="px-5 pb-5">
-            <div className="rounded-2xl bg-gradient-to-br from-brand-100 to-brand-50 p-4">
-              <div className="text-[11px] uppercase tracking-wider text-brand-700 font-semibold">
-                그룹 A · 앨범 1
-              </div>
-              <div className="mt-1 text-base font-bold text-ink">분철 모집</div>
-              <div className="mt-3 flex items-center gap-2 text-xs text-slate-600">
-                <span className="inline-flex items-center gap-1 bg-white px-2 py-0.5 rounded-full border border-slate-200">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                  @host_a · 분철 12회 · 완료율 100%
-                </span>
-              </div>
-            </div>
-
-            <div className="mt-4 space-y-2">
-              <SlotRow color="pink" letter="A" name="멤버 A" price="₩4,300" status="마감" />
-              <SlotRow
-                color="blue"
-                letter="B"
-                name="멤버 B"
-                price="₩4,300 · 잔여 2"
-                action="신청"
-                highlight
-              />
-              <SlotRow color="amber" letter="C" name="멤버 C" price="₩4,300 · 잔여 5" action="신청" />
-            </div>
-
-            <div className="mt-4 text-[11px] text-slate-500 text-center">
-              신청 후 트위터 DM·계좌이체로 결제
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-type SlotRowProps = {
-  color: "pink" | "blue" | "amber";
-  letter: string;
-  name: string;
-  price: string;
-  status?: string;
-  action?: string;
-  highlight?: boolean;
-};
-
-function SlotRow({ color, letter, name, price, status, action, highlight }: SlotRowProps) {
-  const colorMap: Record<SlotRowProps["color"], string> = {
-    pink: "bg-pink-100 text-pink-600",
-    blue: "bg-blue-100 text-brand-700",
-    amber: "bg-amber-100 text-amber-600",
-  };
-
-  return (
-    <div
-      className={`flex items-center justify-between p-3 rounded-xl ${
-        highlight ? "border-2 border-brand-500 bg-brand-50" : "border border-slate-200"
-      }`}
+    <section
+      id="top"
+      className="relative overflow-hidden min-h-[calc(100svh-4rem)] flex items-center justify-center"
     >
-      <div className="flex items-center gap-3">
-        <div className={`w-8 h-8 rounded-full grid place-items-center text-xs font-bold ${colorMap[color]}`}>
-          {letter}
-        </div>
-        <div>
-          <div className="text-sm font-medium">{name}</div>
-          <div className="text-[11px] text-slate-500">{price}</div>
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-brand-50 to-paper" />
+      <div aria-hidden className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+        <div className="hero-blob hero-blob-1 absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full bg-brand-300/40 blur-3xl" />
+        <div className="hero-blob hero-blob-2 absolute top-1/3 -right-28 w-[460px] h-[460px] rounded-full bg-accent-300/35 blur-3xl" />
+        <div className="hero-blob hero-blob-3 absolute -bottom-32 left-1/4 w-[380px] h-[380px] rounded-full bg-brand-100/60 blur-3xl" />
+      </div>
+
+      <div className="relative mx-auto max-w-3xl px-5 text-center">
+        <PainConveyor />
+
+        <h1 className="mt-6 md:mt-8 text-4xl md:text-6xl font-bold tracking-tight text-ink leading-[1.15]">
+          모집은 트위터에서,
+          <br />
+          운영은 <span className="gradient-text">스플로</span>에서.
+        </h1>
+
+        <div className="mt-16 md:mt-20 flex justify-center">
+          <a
+            href="/waitlist"
+            className="cta-btn inline-flex items-center gap-2 bg-brand-500 text-ink font-semibold px-6 py-3.5 rounded-xl"
+          >
+            사전 신청하고 우선 초대받기
+            <ArrowRight size={16} />
+          </a>
         </div>
       </div>
-      {status && <span className="text-[11px] text-rose-500 font-semibold">{status}</span>}
-      {action &&
-        (highlight ? (
-          <button className="text-xs bg-brand-500 text-ink px-3 py-1.5 rounded-lg font-semibold">{action}</button>
-        ) : (
-          <button className="text-xs border border-slate-300 text-slate-700 px-3 py-1.5 rounded-lg font-semibold">
-            {action}
-          </button>
-        ))}
-    </div>
+
+      <div className="absolute left-1/2 -translate-x-1/2 bottom-6 md:bottom-8">
+        <a
+          href="#create"
+          aria-label="다음 섹션으로 스크롤"
+          className="scroll-cue flex flex-col items-center gap-1 text-slate-500 hover:text-ink"
+        >
+          <span className="text-[10px] font-semibold tracking-[0.2em] uppercase">Scroll</span>
+          <ChevronDown size={20} strokeWidth={2.25} />
+        </a>
+      </div>
+    </section>
   );
 }
 
@@ -240,6 +143,11 @@ function Waitlist() {
           <h2 className="mt-4 text-3xl md:text-4xl font-bold tracking-tight">
             먼저 써보고, 같이 만들어요.
           </h2>
+          <p className="mt-3 text-sm text-slate-600">
+            2026년 베타로 운영합니다.
+            <br />
+            이메일 남겨주시면 출시 시 우선 초대해드려요.
+          </p>
           <WaitlistCounter className="mt-6" />
           <div className="mt-6">
             <a
@@ -259,19 +167,23 @@ function Waitlist() {
 const FAQS = [
   {
     q: "결제는 어떻게 받나요? 안전한가요?",
-    a: "스플로는 결제에 개입하지 않습니다. 트위터 DM·계좌이체 그대로 받으세요. \"결제 안전\"·\"환불 보장\"은 약속하지 않습니다. 결제·에스크로·환불 보장 같은 기능은 사용자 충분히 모인 뒤 도입을 검토할 예정이에요.",
+    a: "DM으로 계좌를 주고받는 방식이 아니에요. ① 총대가 등록 단계에서 계좌를 입력해두면 ② 승인되어 참여가 확정된 분철자에게만 계좌가 노출됩니다. ③ 분철자가 입금 후 체크하면 총대에게 알림이 오고 ④ 총대는 대시보드에서 결제 확인을 한 번에 체크해요. 가상계좌·에스크로·환불 보장은 사용자 충분히 모인 뒤 v2에서 검토할 예정이에요.",
   },
   {
     q: "마감 방식은 어떻게 정해요?",
-    a: "총대가 직접 정해요. 선착순·총대 승인(신청자별 수락/거절)·마감 후 추첨 중 선택. 모집 페이지마다 다르게 설정 가능합니다.",
+    a: "총대가 직접 정해요. 선착순 또는 총대 승인(신청자별 수락/거절) 중 선택. 모집 페이지마다 다르게 설정 가능합니다.",
   },
   {
     q: "가입·본인인증이 필요한가요?",
-    a: "결제를 받지 않으니 본인인증·KCP 같은 무거운 절차는 없어요. 트위터 핸들 + 이메일 OTP 정도. 참여자는 가입 없이 게스트 신청도 가능하게 만들 예정.",
+    a: "모든 사용자 가입 필수예요. 카카오 로그인 또는 이메일/비밀번호 + 휴대폰 SMS 인증 1회. 총대로 활동하려면 정산 계좌 1원 인증이 추가됩니다. PASS 같은 무거운 본인인증은 v2에서 검토.",
+  },
+  {
+    q: "주소·연락처를 잘못 적었어요. 총대한테 DM 보내야 하나요?",
+    a: "신청자 본인이 셀프 수정 페이지에서 직접 고치면 돼요. 송장 등록 시점 이후엔 잠겨서 더 이상 수정할 수 없습니다. 총대 DM 응대 부담을 줄이려는 장치예요.",
   },
   {
     q: "요금은요?",
-    a: "베타 기간 동안은 사전 신청해주신 분에 한해 완전 무료로 이용 가능합니다. 이후 결제 기능 도입 시점에 거래 수수료 모델을 검토할 예정이고, 그때도 도입 전 사전 공지해요.",
+    a: "베타 기간 동안은 사전 신청해주신 분에 한해 완전 무료로 이용 가능합니다. 이후 수익 모델 도입 시점에 사전 공지해요.",
   },
   {
     q: "엔터사 IP나 저작권 문제는 없나요?",
@@ -288,7 +200,22 @@ function FAQ() {
           <h2 className="mt-2 text-3xl md:text-4xl font-bold tracking-tight">자주 묻는 질문</h2>
         </div>
 
-        <div className="mt-12 space-y-3">
+        <div className="mt-10 bg-paper border border-slate-200 rounded-2xl p-5 text-sm text-slate-600">
+          <div className="flex items-start gap-2">
+            <span className="text-accent-600 mt-0.5">★</span>
+            <div>
+              <p className="font-semibold text-ink">
+                가상계좌·에스크로·환불 보장은 <u>약속하지 않습니다.</u>
+              </p>
+              <p className="mt-1">
+                입금 확인 도구는 제공해 운영 부담을 줄여드리되, 분쟁 중재나 환불 보장은 사용자
+                충분히 모인 뒤 v2에서 검토할 예정이에요.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8 space-y-3">
           {FAQS.map((f) => (
             <details key={f.q} className="bg-paper border border-slate-200 rounded-2xl p-5">
               <summary className="flex items-center justify-between font-semibold text-ink">
@@ -298,29 +225,6 @@ function FAQ() {
               <p className="mt-3 text-sm text-slate-600 leading-relaxed">{f.a}</p>
             </details>
           ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function PaymentNotice() {
-  return (
-    <section className="py-12 bg-white border-t border-slate-200">
-      <div className="mx-auto max-w-3xl px-5">
-        <div className="bg-paper border border-slate-200 rounded-2xl p-5 text-sm text-slate-600">
-          <div className="flex items-start gap-2">
-            <span className="text-accent-600 mt-0.5">★</span>
-            <div>
-              <p className="font-semibold text-ink">
-                결제 안전·환불 보장은 <u>약속하지 않습니다.</u>
-              </p>
-              <p className="mt-1">
-                결제는 트위터 DM·계좌이체 그대로. 우리는 그 흐름의 운영 부담만 줄여드립니다. 추가 기능은 사용자
-                충분히 모인 뒤 도입할게요.
-              </p>
-            </div>
-          </div>
         </div>
       </div>
     </section>

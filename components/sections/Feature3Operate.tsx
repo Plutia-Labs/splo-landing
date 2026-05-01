@@ -1,6 +1,6 @@
 "use client";
 
-import { Bell, Package, Truck } from "lucide-react";
+import { Bell, Package, PackageCheck, Truck } from "lucide-react";
 import { useInView } from "@/components/hooks/useInView";
 
 const NOTIFY_CHIPS: Array<{
@@ -20,52 +20,62 @@ const NOTIFY_CHIPS: Array<{
 ];
 
 export function Feature3Operate() {
-  const { ref, inView } = useInView<HTMLDivElement>();
+  const { ref: headRef, inView: headInView } = useInView<HTMLDivElement>();
+  const { ref: bodyRef, inView: bodyInView } = useInView<HTMLDivElement>({
+    threshold: 0.2,
+    rootMargin: "0px 0px -15% 0px",
+  });
 
   return (
     <section
       id="operate"
       className="relative overflow-hidden py-24 md:py-32 bg-paper"
     >
-      <div
-        ref={ref}
-        className="mx-auto max-w-6xl px-5"
-        data-in-view={inView ? "true" : "false"}
-      >
-        <div className="text-center max-w-2xl mx-auto">
+      <div className="mx-auto max-w-6xl px-5">
+        <div
+          ref={headRef}
+          data-in-view={headInView ? "true" : "false"}
+          className="text-center max-w-2xl mx-auto"
+        >
           <span className="fade-up inline-block text-sm font-semibold text-brand-700">
             STEP 03 · 운영
           </span>
           <h2 className="fade-up stagger-1 mt-3 text-3xl md:text-5xl font-bold tracking-tight leading-[1.2]">
-            토글 한 번이면,
+            토글은 한 번에,
             <br />
-            <span className="gradient-text">모두에게 한 번에.</span>
+            알림은 모두에게.
           </h2>
           <p className="fade-up stagger-2 mt-5 text-base md:text-lg text-slate-600">
-            발주 완료, 발송 완료. 단계 토글이 곧 참여자 전원 알림이에요.
+            주문 완료, 배송 시작, 택배 도착. 토글 한 번이면 참여자 전원에게 자동 알림이 가요.
           </p>
         </div>
 
-        <div className="fade-up stagger-3 relative mt-16 md:mt-20 h-[440px] md:h-[480px] flex items-center justify-center">
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full border-2 border-brand-300 pulse-ring" data-in-view={inView ? "true" : "false"} />
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full border-2 border-brand-500 pulse-ring" data-in-view={inView ? "true" : "false"} style={{ animationDelay: "0.7s" }} />
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full border-2 border-accent-500 pulse-ring" data-in-view={inView ? "true" : "false"} style={{ animationDelay: "1.4s" }} />
+        <div
+          ref={bodyRef}
+          data-in-view={bodyInView ? "true" : "false"}
+          className="fade-up relative mt-16 md:mt-20 h-[440px] md:h-[480px] flex items-center justify-center"
+        >
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full border-2 border-brand-300 pulse-ring" data-in-view={bodyInView ? "true" : "false"} />
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full border-2 border-brand-500 pulse-ring" data-in-view={bodyInView ? "true" : "false"} style={{ animationDelay: "0.7s" }} />
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full border-2 border-accent-500 pulse-ring" data-in-view={bodyInView ? "true" : "false"} style={{ animationDelay: "1.4s" }} />
 
           <div className="relative z-20 rounded-3xl bg-white border border-slate-200 shadow-2xl px-7 py-6 w-[260px]">
             <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
               운영 단계
             </div>
 
-            <ToggleStep icon={Package} label="발주 완료" active />
+            <ToggleStep icon={Package} label="주문 완료" active />
             <div className="ml-4 my-1 w-px h-3 bg-slate-200" />
-            <ToggleStep icon={Truck} label="발송 완료" />
+            <ToggleStep icon={Truck} label="배송 시작" />
+            <div className="ml-4 my-1 w-px h-3 bg-slate-200" />
+            <ToggleStep icon={PackageCheck} label="택배 도착" />
           </div>
 
           {NOTIFY_CHIPS.map((chip, i) => (
             <div
               key={chip.handle}
               className="notify-burst absolute left-1/2 top-1/2 z-10"
-              data-in-view={inView ? "true" : "false"}
+              data-in-view={bodyInView ? "true" : "false"}
               style={
                 {
                   "--tx": chip.tx,
@@ -81,15 +91,12 @@ export function Feature3Operate() {
                 <span className="text-[11px] font-semibold text-ink">
                   {chip.handle}
                 </span>
-                <span className="text-[10px] text-slate-500">발주 완료</span>
+                <span className="text-[10px] text-slate-500">주문 완료</span>
               </div>
             </div>
           ))}
         </div>
 
-        <div className="fade-up stagger-4 mt-8 md:mt-12 text-center text-xs text-slate-500">
-          참여자 전원에게 자동 알림 · 직접 N번 복붙 안 해도 돼요
-        </div>
       </div>
     </section>
   );

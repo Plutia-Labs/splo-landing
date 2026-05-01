@@ -23,6 +23,11 @@ export default function RootLayout({
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css"
         />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `if('scrollRestoration' in history){history.scrollRestoration='manual';}window.addEventListener('pageshow',function(){window.scrollTo(0,0);});`,
+          }}
+        />
       </head>
       <body className="antialiased">{children}</body>
     </html>
