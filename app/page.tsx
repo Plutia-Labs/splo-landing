@@ -239,30 +239,27 @@ function SlotRow({ color, letter, name, price, status, action, highlight }: Slot
 }
 
 const PROBLEMS = [
-  { icon: "📝", title: "모집글 매번 다시 쓰기", body: "앨범 정보·슬롯·계좌·DM 안내·해시태그… 매 분철마다 처음부터." },
-  { icon: "📋", title: "명단 손으로 적기", body: "DM으로 들어온 신청자, 노션·메모장에 옮겨 적다 누락 발생." },
-  { icon: "💬", title: "DM 스레드 뒤지기", body: "한 분철에 N명, DM 스레드 흩어져 누가 어디 멤버인지 헷갈림." },
-  { icon: "📤", title: "N명에게 똑같은 안내", body: "발주·발송·송장 등록 단계마다 똑같은 메시지를 N번 복붙." },
-  { icon: "🪪", title: "신뢰 증명이 어려움", body: "\"전에 분철 잘 돌렸어요\"를 새 참여자에게 어떻게 보여주지?" },
-  { icon: "⏱️", title: "시간이 너무 많이 듦", body: "분철 1건당 운영에 평균 N시간. 본업도 있는데 솔직히 빡세요." },
+  { icon: "📝", title: "모집글 매번 새로", body: "앨범·슬롯·계좌·해시태그를 매번 처음부터." },
+  { icon: "📋", title: "명단 DM·메모장 산재", body: "신청자 옮겨 적다 누락 발생." },
+  { icon: "📤", title: "안내 N번 복붙", body: "발주·발송 단계마다 같은 메시지 N번." },
+  { icon: "🪪", title: "신뢰 증명 어려움", body: "\"전에 잘 돌렸어요\"를 새 참여자에게 어떻게?" },
 ];
 
 function Problem() {
   return (
-    <section id="problem" className="py-20 md:py-28">
+    <section id="problem" className="py-24 md:py-32">
       <div className="mx-auto max-w-6xl px-5">
         <div className="max-w-2xl">
           <span className="text-sm font-semibold text-brand-700">총대의 하루</span>
           <h2 className="mt-2 text-3xl md:text-4xl font-bold tracking-tight">
-            분철 한 번 돌리는 데 <br className="hidden md:inline" />왜 이렇게 손이 많이 갈까?
+            분철 한 번에 <br className="hidden md:inline" />왜 이렇게 손이 많이 갈까?
           </h2>
           <p className="mt-4 text-slate-600">
-            분철 자체가 어려운 게 아니에요. <strong className="text-ink">그 운영이</strong> 어렵습니다. 모집글, 명단,
-            결제 확인, 안내, 송장. 매번 똑같은 일을 반복해야 하니까요.
+            분철이 어려운 게 아니라, <strong className="text-ink">그 운영이</strong> 어렵죠. 매번 같은 일을 반복하니까요.
           </p>
         </div>
 
-        <div className="mt-12 grid md:grid-cols-3 gap-5">
+        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
           {PROBLEMS.map((p) => (
             <div key={p.title} className="bg-white border border-slate-200 rounded-2xl p-6">
               <div className="text-2xl">{p.icon}</div>
@@ -278,7 +275,7 @@ function Problem() {
 
 function Solution() {
   return (
-    <section id="solution" className="py-20 md:py-28 bg-white border-y border-slate-200">
+    <section id="solution" className="py-24 md:py-32 bg-white border-y border-slate-200">
       <div className="mx-auto max-w-6xl px-5">
         <div className="max-w-2xl">
           <span className="text-sm font-semibold text-brand-700">우리가 도와줄게</span>
@@ -288,13 +285,12 @@ function Solution() {
             총대의 손만 빌려드릴게요.
           </h2>
           <p className="mt-4 text-slate-600">
-            스플로는 <strong className="text-ink">트위터 분철을 대체하지 않습니다.</strong> 모집·홍보·결제는 트위터
-            그대로 쓰세요. 우리는 그 흐름의 운영 부담만 덜어드려요.
+            <strong className="text-ink">트위터 분철은 그대로 두고,</strong> 운영 부담만 덜어드려요.
           </p>
         </div>
 
         <div className="mt-12 grid md:grid-cols-2 gap-5">
-          <SolutionCard n="01" title="모집글 자동 생성" body="앨범·슬롯·해시태그·우리 링크가 들어간 모집글 템플릿을 자동 생성. 클립보드 복사 → 트위터 붙여넣기.">
+          <SolutionCard n="01" title="모집글 자동 생성" body="한 번 입력하면 모집글 자동 작성. 복사 → 트위터 붙여넣기.">
             <div className="flex items-center gap-2">
               <div className="w-12 h-14 rounded-md border border-slate-200 bg-slate-50 grid place-items-center">
                 <FileText size={20} className="text-brand-600" />
@@ -306,7 +302,7 @@ function Solution() {
             </div>
           </SolutionCard>
 
-          <SolutionCard n="02" title="슬롯 자동 마감 + 마감 방식 선택" body="총대가 직접 정함. 멤버별 잔여 슬롯도 자동 표시·자동 마감.">
+          <SolutionCard n="02" title="슬롯 자동 마감 + 마감 방식 선택" body="선착순·승인·추첨 중 선택. 잔여 슬롯 자동 표시.">
             <div className="flex flex-col gap-1.5">
               <span className="inline-flex items-center justify-center text-xs font-semibold px-3 py-1.5 rounded-full border-2 border-brand-500 bg-brand-50 text-brand-700">
                 선착순
@@ -320,7 +316,7 @@ function Solution() {
             </div>
           </SolutionCard>
 
-          <SolutionCard n="03" title="참여자 명단 한 화면" body="트위터 핸들·연락처·선택 멤버·결제 확인까지 한 테이블에서. DM 스레드 뒤질 일 없어요.">
+          <SolutionCard n="03" title="참여자 명단 한 화면" body="신청자·멤버·결제 확인까지 한 테이블. DM 뒤질 일 없어요.">
             <div className="w-full max-w-[180px] rounded-md border border-slate-200 bg-white overflow-hidden text-[10px]">
               <div className="grid grid-cols-3 bg-slate-50 px-2 py-1 font-semibold text-slate-600 border-b border-slate-200">
                 <span>핸들</span>
@@ -345,7 +341,7 @@ function Solution() {
             </div>
           </SolutionCard>
 
-          <SolutionCard n="04" title="단계 토글로 일괄 알림" body="발주·발송 토글 한 번 → 참여자 N명에게 자동 알림. 메시지 N번 복붙 안 해도 돼요.">
+          <SolutionCard n="04" title="단계 토글로 일괄 알림" body="발주·발송 토글 → 참여자 전원에 자동 알림.">
             <div className="flex items-center gap-2">
               <ToggleRight size={36} className="text-brand-500" />
               <ArrowRight size={14} className="text-slate-400" />
@@ -361,7 +357,7 @@ function Solution() {
           <SolutionCard
             n="05"
             title="분철 이력 정리·인증 페이지"
-            body="지금까지 운영한 분철 횟수·완료율을 자동 정리한 페이지를 발급해드려요. 트위터 바이오·고정 트윗에 링크로 붙이면 새 참여자가 결제 전 한 번 확인할 수 있어요."
+            body="운영 이력·완료율을 자동 정리. 트위터 바이오에 링크로 붙이면 새 참여자가 결제 전 확인 가능."
             span2
           >
             <div className="rounded-xl border border-slate-200 bg-white p-3 w-full max-w-[210px] shadow-sm">
@@ -417,37 +413,37 @@ const STEPS = [
     n: 1,
     icon: FormInput,
     title: "분철 정보 입력",
-    body: "앨범·슬롯·가격·계좌·마감 방식. 한 번만 입력.",
+    body: "앨범·슬롯·가격·계좌. 한 번만.",
   },
   {
     n: 2,
     icon: Send,
-    title: "모집글 자동 생성 → 트위터 게시",
-    body: "신청 링크가 포함된 모집글을 자동 작성. 복사해서 트위터에 그대로 붙여넣기.",
+    title: "모집글 자동 → 트위터",
+    body: "자동 작성된 모집글을 복사해 게시.",
   },
   {
     n: 3,
     icon: LayoutList,
     title: "신청 자동 누적",
-    body: "참여자가 우리 사이트에서 신청 → 총대 대시보드에 자동.",
+    body: "참여자 신청 → 대시보드에 자동.",
   },
   {
     n: 4,
     icon: ToggleRight,
     title: "단계 토글로 끝",
-    body: "발주·발송 토글 → 참여자 일괄 알림 자동.",
+    body: "발주·발송 토글 → 일괄 알림.",
   },
 ];
 
 function HowItWorks() {
   return (
-    <section id="how" className="py-20 md:py-28">
+    <section id="how" className="py-24 md:py-32">
       <div className="mx-auto max-w-6xl px-5">
         <div className="max-w-2xl">
           <span className="text-sm font-semibold text-brand-700">작동 방식</span>
           <h2 className="mt-2 text-3xl md:text-4xl font-bold tracking-tight">한 분철, 5분.</h2>
           <p className="mt-4 text-slate-600">
-            총대가 우리 사이트에 분철 정보 한 번 입력하면 끝. 나머지는 자동.
+            정보 한 번 입력. 나머지는 자동.
           </p>
         </div>
 
@@ -499,12 +495,10 @@ const COMPARE_COLUMNS: CompareColumn[] = [
     title: "트위터 + 노션·메모",
     subtitle: "현재 대부분의 총대",
     items: [
-      { label: "전환 비용 0", mark: "check", note: "이미 쓰던 방식" },
+      { label: "전환 비용 0", mark: "check" },
       { label: "모집글 매번 직접", mark: "cross" },
       { label: "명단 DM·메모장 산재", mark: "cross" },
       { label: "안내 N명 복붙", mark: "cross" },
-      { label: "결제 트위터 DM", mark: "check" },
-      { label: "신뢰 팔로워·후기 트윗", mark: "neutral" },
     ],
   },
   {
@@ -512,11 +506,9 @@ const COMPARE_COLUMNS: CompareColumn[] = [
     subtitle: "기존 시도된 대안",
     items: [
       { label: "전환 비용 큼", mark: "cross", note: "결제·약관·가입" },
-      { label: "참여자 모객 어려움", mark: "cross", note: "분철 참여자 대다수가 트위터에 있음" },
-      { label: "자체 시스템", mark: "check" },
-      { label: "자동 알림", mark: "check" },
-      { label: "자체 PG·에스크로", mark: "neutral", note: "약관 동의 필요" },
-      { label: "자체 평점", mark: "neutral" },
+      { label: "참여자 모객 어려움", mark: "cross" },
+      { label: "자체 시스템·자동 알림", mark: "check" },
+      { label: "자체 PG·평점", mark: "neutral" },
     ],
   },
   {
@@ -524,25 +516,23 @@ const COMPARE_COLUMNS: CompareColumn[] = [
     subtitle: "운영만 거든다",
     highlight: true,
     items: [
-      { label: "전환 비용 0", mark: "check", note: "링크 한 줄 추가" },
+      { label: "전환 비용 0", mark: "check", note: "링크 한 줄" },
       { label: "자동 템플릿 + 복사", mark: "check" },
       { label: "한 테이블 + 결제 체크", mark: "check" },
-      { label: "단계 토글 → 일괄", mark: "check" },
-      { label: "트위터 DM 그대로", mark: "check", note: "개입 X" },
-      { label: "이력 인증 페이지", mark: "check", note: "바이오·고정 트윗에 링크로 첨부" },
+      { label: "토글 → 일괄 알림", mark: "check" },
     ],
   },
 ];
 
 function Comparison() {
   return (
-    <section id="compare" className="py-20 md:py-28 bg-white border-y border-slate-200">
+    <section id="compare" className="py-24 md:py-32 bg-white border-y border-slate-200">
       <div className="mx-auto max-w-6xl px-5">
         <div className="max-w-2xl">
           <span className="text-sm font-semibold text-brand-700">비교</span>
           <h2 className="mt-2 text-3xl md:text-4xl font-bold tracking-tight">왜 굳이 새 도구를?</h2>
           <p className="mt-4 text-slate-600">
-            기존 분철 흐름을 깨지 않으면서, 운영 시간만 줄이는 데 집중했어요.
+            기존 흐름을 깨지 않고, 운영 시간만 줄이는 데 집중했어요.
           </p>
         </div>
 
