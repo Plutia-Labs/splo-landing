@@ -149,7 +149,7 @@ function PainChipsFlow() {
       <div className="mt-4 flex items-center gap-3">
         <ArrowRight className="text-brand-500 shrink-0" size={24} />
         <p className="text-lg text-ink font-semibold">
-          그거 다 <span className="gradient-text">우리가</span> 대신 해드릴게요.
+          그거 다 우리가 대신 해드릴게요.
         </p>
       </div>
     </div>
@@ -298,7 +298,7 @@ function Solution() {
           <h2 className="mt-2 text-3xl md:text-4xl font-bold tracking-tight">
             트위터 흐름은 그대로,
             <br />
-            <span className="gradient-text">총대의 손만</span> 빌려드릴게요.
+            총대의 손만 빌려드릴게요.
           </h2>
           <p className="mt-4 text-slate-600">
             스플로는 <strong className="text-ink">트위터 분철을 대체하지 않습니다.</strong> 모집·홍보·결제는 트위터
