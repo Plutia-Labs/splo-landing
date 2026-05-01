@@ -1,5 +1,19 @@
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import {
+  ArrowRight,
+  ArrowDown,
+  CheckCircle2,
+  XCircle,
+  Minus,
+  FormInput,
+  Send,
+  LayoutList,
+  ToggleRight,
+  FileText,
+  Clipboard,
+  Bell,
+} from "lucide-react";
+import { WaitlistCounter } from "@/components/WaitlistCounter";
 
 export const dynamic = "force-dynamic";
 
@@ -224,6 +238,13 @@ function SlotRow({ color, letter, name, price, status, action, highlight }: Slot
   );
 }
 
+const PROBLEMS = [
+  { icon: "📝", title: "모집글 매번 새로", body: "앨범·슬롯·계좌·해시태그를 매번 처음부터." },
+  { icon: "📋", title: "명단 DM·메모장 산재", body: "신청자 옮겨 적다 누락 발생." },
+  { icon: "📤", title: "안내 N번 복붙", body: "발주·발송 단계마다 같은 메시지 N번." },
+  { icon: "🪪", title: "신뢰 증명 어려움", body: "\"전에 잘 돌렸어요\"를 새 참여자에게 어떻게?" },
+];
+
 function Problem() {
   return (
     <section id="problem" className="py-24 md:py-32">
@@ -233,6 +254,19 @@ function Problem() {
           <h2 className="mt-2 text-3xl md:text-4xl font-bold tracking-tight">
             분철 한 번에 <br className="hidden md:inline" />왜 이렇게 손이 많이 갈까?
           </h2>
+          <p className="mt-4 text-slate-600">
+            분철이 어려운 게 아니라, <strong className="text-ink">그 운영이</strong> 어렵죠. 매번 같은 일을 반복하니까요.
+          </p>
+        </div>
+
+        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+          {PROBLEMS.map((p) => (
+            <div key={p.title} className="bg-white border border-slate-200 rounded-2xl p-6">
+              <div className="text-2xl">{p.icon}</div>
+              <h3 className="mt-3 font-semibold text-ink">{p.title}</h3>
+              <p className="mt-2 text-sm text-slate-600">{p.body}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -250,11 +284,156 @@ function Solution() {
             <br />
             총대의 손만 빌려드릴게요.
           </h2>
+          <p className="mt-4 text-slate-600">
+            <strong className="text-ink">트위터 분철은 그대로 두고,</strong> 운영 부담만 덜어드려요.
+          </p>
+        </div>
+
+        <div className="mt-12 grid md:grid-cols-2 gap-5">
+          <SolutionCard n="01" title="모집글 자동 생성" body="한 번 입력하면 모집글 자동 작성. 복사 → 트위터 붙여넣기.">
+            <div className="flex items-center gap-2">
+              <div className="w-12 h-14 rounded-md border border-slate-200 bg-slate-50 grid place-items-center">
+                <FileText size={20} className="text-brand-600" />
+              </div>
+              <ArrowRight size={16} className="text-slate-400" />
+              <div className="w-12 h-14 rounded-md border border-brand-300 bg-brand-50 grid place-items-center">
+                <Clipboard size={20} className="text-brand-600" />
+              </div>
+            </div>
+          </SolutionCard>
+
+          <SolutionCard n="02" title="슬롯 자동 마감 + 마감 방식 선택" body="선착순·승인·추첨 중 선택. 잔여 슬롯 자동 표시.">
+            <div className="flex flex-col gap-1.5">
+              <span className="inline-flex items-center justify-center text-xs font-semibold px-3 py-1.5 rounded-full border-2 border-brand-500 bg-brand-50 text-brand-700">
+                선착순
+              </span>
+              <span className="inline-flex items-center justify-center text-xs font-semibold px-3 py-1.5 rounded-full border border-slate-200 bg-white text-slate-600">
+                총대 승인
+              </span>
+              <span className="inline-flex items-center justify-center text-xs font-semibold px-3 py-1.5 rounded-full border border-slate-200 bg-white text-slate-600">
+                추첨
+              </span>
+            </div>
+          </SolutionCard>
+
+          <SolutionCard n="03" title="참여자 명단 한 화면" body="신청자·멤버·결제 확인까지 한 테이블. DM 뒤질 일 없어요.">
+            <div className="w-full max-w-[180px] rounded-md border border-slate-200 bg-white overflow-hidden text-[10px]">
+              <div className="grid grid-cols-3 bg-slate-50 px-2 py-1 font-semibold text-slate-600 border-b border-slate-200">
+                <span>핸들</span>
+                <span>멤버</span>
+                <span className="text-right">결제</span>
+              </div>
+              <div className="grid grid-cols-3 px-2 py-1 border-b border-slate-100">
+                <span className="text-slate-700">@han_a</span>
+                <span className="text-slate-500">A</span>
+                <span className="text-right text-emerald-600">✓</span>
+              </div>
+              <div className="grid grid-cols-3 px-2 py-1 border-b border-slate-100">
+                <span className="text-slate-700">@han_b</span>
+                <span className="text-slate-500">B</span>
+                <span className="text-right text-emerald-600">✓</span>
+              </div>
+              <div className="grid grid-cols-3 px-2 py-1">
+                <span className="text-slate-700">@han_c</span>
+                <span className="text-slate-500">C</span>
+                <span className="text-right text-slate-300">·</span>
+              </div>
+            </div>
+          </SolutionCard>
+
+          <SolutionCard n="04" title="단계 토글로 일괄 알림" body="발주·발송 토글 → 참여자 전원에 자동 알림.">
+            <div className="flex items-center gap-2">
+              <ToggleRight size={36} className="text-brand-500" />
+              <ArrowRight size={14} className="text-slate-400" />
+              <div className="relative">
+                <Bell size={24} className="text-slate-700" />
+                <span className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-accent-500 text-white text-[8px] font-bold grid place-items-center">
+                  N
+                </span>
+              </div>
+            </div>
+          </SolutionCard>
+
+          <SolutionCard
+            n="05"
+            title="분철 이력 정리·인증 페이지"
+            body="운영 이력·완료율을 자동 정리. 트위터 바이오에 링크로 붙이면 새 참여자가 결제 전 확인 가능."
+            span2
+          >
+            <div className="rounded-xl border border-slate-200 bg-white p-3 w-full max-w-[210px] shadow-sm">
+              <div className="text-[9px] text-slate-400">splo.io/host/@host_a</div>
+              <div className="mt-2 inline-flex items-center gap-1 bg-emerald-50 text-emerald-700 text-[10px] font-semibold px-1.5 py-0.5 rounded-full">
+                <CheckCircle2 size={10} />
+                인증된 호스트
+              </div>
+              <div className="mt-2 text-sm font-bold text-ink">@host_a</div>
+              <div className="mt-1 text-[10px] text-slate-500">분철 12회 · 완료 100%</div>
+              <div className="mt-2 pt-2 border-t border-slate-100 text-[9px] text-slate-400">
+                최근: 앨범 X (2026.04)
+              </div>
+            </div>
+          </SolutionCard>
         </div>
       </div>
     </section>
   );
 }
+
+function SolutionCard({
+  n,
+  title,
+  body,
+  children,
+  span2,
+}: {
+  n: string;
+  title: string;
+  body: string;
+  children: React.ReactNode;
+  span2?: boolean;
+}) {
+  return (
+    <div
+      className={`rounded-2xl border border-slate-200 p-6 hover:border-brand-300 transition flex gap-5 ${
+        span2 ? "md:col-span-2" : ""
+      }`}
+    >
+      <div className="shrink-0 grid place-items-center min-w-[80px]">{children}</div>
+      <div>
+        <div className="text-xs text-brand-700 font-semibold">{n}</div>
+        <h3 className="mt-1 text-lg font-bold">{title}</h3>
+        <p className="mt-2 text-sm text-slate-600">{body}</p>
+      </div>
+    </div>
+  );
+}
+
+const STEPS = [
+  {
+    n: 1,
+    icon: FormInput,
+    title: "분철 정보 입력",
+    body: "앨범·슬롯·가격·계좌. 한 번만.",
+  },
+  {
+    n: 2,
+    icon: Send,
+    title: "모집글 자동 → 트위터",
+    body: "자동 작성된 모집글을 복사해 게시.",
+  },
+  {
+    n: 3,
+    icon: LayoutList,
+    title: "신청 자동 누적",
+    body: "참여자 신청 → 대시보드에 자동.",
+  },
+  {
+    n: 4,
+    icon: ToggleRight,
+    title: "단계 토글로 끝",
+    body: "발주·발송 토글 → 일괄 알림.",
+  },
+];
 
 function HowItWorks() {
   return (
@@ -263,11 +442,87 @@ function HowItWorks() {
         <div className="max-w-2xl">
           <span className="text-sm font-semibold text-brand-700">작동 방식</span>
           <h2 className="mt-2 text-3xl md:text-4xl font-bold tracking-tight">한 분철, 5분.</h2>
+          <p className="mt-4 text-slate-600">
+            정보 한 번 입력. 나머지는 자동.
+          </p>
         </div>
+
+        <div className="mt-12 flex flex-col md:flex-row md:items-stretch gap-3 md:gap-2">
+          {STEPS.map((s, idx) => {
+            const Icon = s.icon;
+            return (
+              <div key={s.n} className="flex md:flex-1 md:items-stretch">
+                <div className="relative flex-1 bg-white border border-slate-200 rounded-2xl p-6 overflow-hidden">
+                  <div className="absolute top-3 right-4 text-5xl font-black text-brand-100 select-none leading-none">
+                    {String(s.n).padStart(2, "0")}
+                  </div>
+                  <div className="relative inline-flex w-12 h-12 rounded-xl bg-brand-50 items-center justify-center text-brand-600">
+                    <Icon size={24} strokeWidth={2} />
+                  </div>
+                  <h3 className="relative mt-4 font-semibold text-ink">{s.title}</h3>
+                  <p className="relative mt-2 text-sm text-slate-600">{s.body}</p>
+                </div>
+                {idx < STEPS.length - 1 && (
+                  <div className="grid place-items-center px-1 md:px-2">
+                    <ArrowRight className="hidden md:block text-slate-300" size={20} />
+                    <ArrowDown className="md:hidden text-slate-300 my-2" size={20} />
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        <p className="mt-10 text-sm text-slate-500 text-center">
+          ⓘ 결제·계좌이체는 <strong>트위터 DM 그대로</strong>. 우리는 결제에 개입하지 않아요.
+        </p>
       </div>
     </section>
   );
 }
+
+type CompareIcon = "check" | "cross" | "neutral";
+type CompareItem = { label: string; mark: CompareIcon; note?: string };
+type CompareColumn = {
+  title: string;
+  subtitle?: string;
+  highlight?: boolean;
+  items: CompareItem[];
+};
+
+const COMPARE_COLUMNS: CompareColumn[] = [
+  {
+    title: "트위터 + 노션·메모",
+    subtitle: "현재 대부분의 총대",
+    items: [
+      { label: "전환 비용 0", mark: "check" },
+      { label: "모집글 매번 직접", mark: "cross" },
+      { label: "명단 DM·메모장 산재", mark: "cross" },
+      { label: "안내 N명 복붙", mark: "cross" },
+    ],
+  },
+  {
+    title: "결제·중개 통합 플랫폼",
+    subtitle: "기존 시도된 대안",
+    items: [
+      { label: "전환 비용 큼", mark: "cross", note: "결제·약관·가입" },
+      { label: "참여자 모객 어려움", mark: "cross" },
+      { label: "자체 시스템·자동 알림", mark: "check" },
+      { label: "자체 PG·평점", mark: "neutral" },
+    ],
+  },
+  {
+    title: "스플로",
+    subtitle: "운영만 거든다",
+    highlight: true,
+    items: [
+      { label: "전환 비용 0", mark: "check", note: "링크 한 줄" },
+      { label: "자동 템플릿 + 복사", mark: "check" },
+      { label: "한 테이블 + 결제 체크", mark: "check" },
+      { label: "토글 → 일괄 알림", mark: "check" },
+    ],
+  },
+];
 
 function Comparison() {
   return (
@@ -276,10 +531,55 @@ function Comparison() {
         <div className="max-w-2xl">
           <span className="text-sm font-semibold text-brand-700">비교</span>
           <h2 className="mt-2 text-3xl md:text-4xl font-bold tracking-tight">왜 굳이 새 도구를?</h2>
+          <p className="mt-4 text-slate-600">
+            기존 흐름을 깨지 않고, 운영 시간만 줄이는 데 집중했어요.
+          </p>
         </div>
+
+        <div className="mt-10 grid md:grid-cols-3 gap-5 items-start">
+          {COMPARE_COLUMNS.map((col) => (
+            <CompareCardCol key={col.title} col={col} />
+          ))}
+        </div>
+
+        <p className="mt-6 text-xs text-slate-500">
+          * 결제·환불 보장·영상 인증은 사용자 충분히 모인 뒤 추가 예정. 본 단계에서는 약속하지 않습니다.
+        </p>
       </div>
     </section>
   );
+}
+
+function CompareCardCol({ col }: { col: CompareColumn }) {
+  return (
+    <div
+      className={`rounded-2xl border p-6 ${
+        col.highlight
+          ? "border-brand-400 bg-brand-50/40 ring-2 ring-brand-200"
+          : "border-slate-200 bg-white"
+      }`}
+    >
+      <h3 className={`font-bold ${col.highlight ? "text-brand-700" : "text-ink"}`}>{col.title}</h3>
+      {col.subtitle && <p className="mt-1 text-xs text-slate-500">{col.subtitle}</p>}
+      <ul className="mt-5 space-y-3">
+        {col.items.map((it) => (
+          <li key={it.label} className="flex items-start gap-2.5">
+            <CompareMark mark={it.mark} />
+            <div className="text-sm">
+              <div className={`${col.highlight ? "text-ink font-medium" : "text-slate-700"}`}>{it.label}</div>
+              {it.note && <div className="text-xs text-slate-500 mt-0.5">{it.note}</div>}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function CompareMark({ mark }: { mark: CompareIcon }) {
+  if (mark === "check") return <CheckCircle2 size={18} className="text-emerald-500 mt-0.5 shrink-0" />;
+  if (mark === "cross") return <XCircle size={18} className="text-rose-400 mt-0.5 shrink-0" />;
+  return <Minus size={18} className="text-slate-400 mt-0.5 shrink-0" />;
 }
 
 function Waitlist() {
@@ -293,11 +593,49 @@ function Waitlist() {
           <h2 className="mt-4 text-3xl md:text-4xl font-bold tracking-tight">
             먼저 써보고, 같이 만들어요.
           </h2>
+          <p className="mt-3 text-slate-600">
+            현재 ~ 2026년 8월 사이 베타로 운영합니다.
+            <br />
+            이메일 남겨주시면 출시 시 우선 초대해드려요.
+          </p>
+          <WaitlistCounter className="mt-6" />
+          <div className="mt-6">
+            <a
+              href="/waitlist"
+              className="cta-btn inline-flex items-center gap-2 bg-brand-500 text-ink font-semibold px-6 py-3.5 rounded-xl"
+            >
+              사전 신청하기
+              <ArrowRight size={16} />
+            </a>
+          </div>
         </div>
       </div>
     </section>
   );
 }
+
+const FAQS = [
+  {
+    q: "결제는 어떻게 받나요? 안전한가요?",
+    a: "스플로는 결제에 개입하지 않습니다. 트위터 DM·계좌이체 그대로 받으세요. \"결제 안전\"·\"환불 보장\"은 약속하지 않습니다. 결제·에스크로·환불 보장 같은 기능은 사용자 충분히 모인 뒤 도입을 검토할 예정이에요.",
+  },
+  {
+    q: "마감 방식은 어떻게 정해요?",
+    a: "총대가 직접 정해요. 선착순·총대 승인(신청자별 수락/거절)·마감 후 추첨 중 선택. 모집 페이지마다 다르게 설정 가능합니다.",
+  },
+  {
+    q: "가입·본인인증이 필요한가요?",
+    a: "결제를 받지 않으니 본인인증·KCP 같은 무거운 절차는 없어요. 트위터 핸들 + 이메일 OTP 정도. 참여자는 가입 없이 게스트 신청도 가능하게 만들 예정.",
+  },
+  {
+    q: "요금은요?",
+    a: "베타 기간 동안은 사전 신청해주신 분에 한해 완전 무료로 이용 가능합니다. 이후 결제 기능 도입 시점에 거래 수수료 모델을 검토할 예정이고, 그때도 도입 전 사전 공지해요.",
+  },
+  {
+    q: "엔터사 IP나 저작권 문제는 없나요?",
+    a: "우리는 분철 자체를 중개하지 않고 운영 도구만 제공합니다. 공식 발매 SKU 한정으로 모집 페이지를 만들 수 있게 안내하고 있어요. 출시 전 1~2개 엔터사와 사전 커뮤니케이션도 검토 중입니다.",
+  },
+];
 
 function FAQ() {
   return (
@@ -306,6 +644,18 @@ function FAQ() {
         <div className="text-center">
           <span className="text-sm font-semibold text-brand-700">FAQ</span>
           <h2 className="mt-2 text-3xl md:text-4xl font-bold tracking-tight">자주 묻는 질문</h2>
+        </div>
+
+        <div className="mt-12 space-y-3">
+          {FAQS.map((f) => (
+            <details key={f.q} className="bg-paper border border-slate-200 rounded-2xl p-5">
+              <summary className="flex items-center justify-between font-semibold text-ink">
+                {f.q}
+                <span className="faq-icon text-2xl text-slate-400 leading-none">+</span>
+              </summary>
+              <p className="mt-3 text-sm text-slate-600 leading-relaxed">{f.a}</p>
+            </details>
+          ))}
         </div>
       </div>
     </section>
@@ -322,6 +672,10 @@ function PaymentNotice() {
             <div>
               <p className="font-semibold text-ink">
                 결제 안전·환불 보장은 <u>약속하지 않습니다.</u>
+              </p>
+              <p className="mt-1">
+                결제는 트위터 DM·계좌이체 그대로. 우리는 그 흐름의 운영 부담만 줄여드립니다. 추가 기능은 사용자
+                충분히 모인 뒤 도입할게요.
               </p>
             </div>
           </div>
