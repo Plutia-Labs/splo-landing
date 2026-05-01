@@ -46,9 +46,7 @@ function Nav() {
             className="rounded-xl ring-1 ring-slate-200"
             priority
           />
-          <span className="font-semibold text-ink">
-            스플로 <span className="text-slate-400 text-sm font-normal">(가제)</span>
-          </span>
+          <span className="font-semibold text-ink">스플로</span>
         </a>
         <nav className="hidden md:flex items-center gap-7 text-sm text-slate-600">
           <a href="#problem" className="hover:text-ink">총대의 하루</a>
@@ -535,7 +533,7 @@ const COMPARE_COLUMNS: CompareColumn[] = [
     ],
   },
   {
-    title: "스플로 (가제)",
+    title: "스플로",
     subtitle: "운영만 거든다",
     highlight: true,
     items: [
@@ -700,7 +698,7 @@ function Footer() {
               height={32}
               className="rounded-lg ring-1 ring-slate-200"
             />
-            <span>스플로 (가제) · 분철 총대의 운영 비서</span>
+            <span>스플로 · 분철 총대의 운영 비서</span>
           </div>
           <div className="flex items-center gap-5">
             <a href="mailto:hello@example.com" className="hover:text-ink">문의</a>

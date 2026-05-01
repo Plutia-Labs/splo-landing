@@ -19,9 +19,7 @@ export default function WaitlistPage() {
               className="rounded-xl ring-1 ring-slate-200"
               priority
             />
-            <span className="font-semibold text-ink">
-              스플로 <span className="text-slate-400 text-sm font-normal">(가제)</span>
-            </span>
+            <span className="font-semibold text-ink">스플로</span>
           </a>
           <a
             href="/"
@@ -67,7 +65,7 @@ export default function WaitlistPage() {
                 height={32}
                 className="rounded-lg ring-1 ring-slate-200"
               />
-              <span>스플로 (가제) · 분철 총대의 운영 비서</span>
+              <span>스플로 · 분철 총대의 운영 비서</span>
             </div>
             <div className="flex items-center gap-5">
               <a href="/" className="hover:text-ink">메인</a>
