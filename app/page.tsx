@@ -254,9 +254,6 @@ function Problem() {
           <h2 className="mt-2 text-3xl md:text-4xl font-bold tracking-tight">
             분철 한 번에 <br className="hidden md:inline" />왜 이렇게 손이 많이 갈까?
           </h2>
-          <p className="mt-4 text-slate-600">
-            분철이 어려운 게 아니라, <strong className="text-ink">그 운영이</strong> 어렵죠. 매번 같은 일을 반복하니까요.
-          </p>
         </div>
 
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
@@ -284,9 +281,6 @@ function Solution() {
             <br />
             총대의 손만 빌려드릴게요.
           </h2>
-          <p className="mt-4 text-slate-600">
-            <strong className="text-ink">트위터 분철은 그대로 두고,</strong> 운영 부담만 덜어드려요.
-          </p>
         </div>
 
         <div className="mt-12 grid md:grid-cols-2 gap-5">
@@ -442,9 +436,6 @@ function HowItWorks() {
         <div className="max-w-2xl">
           <span className="text-sm font-semibold text-brand-700">작동 방식</span>
           <h2 className="mt-2 text-3xl md:text-4xl font-bold tracking-tight">한 분철, 5분.</h2>
-          <p className="mt-4 text-slate-600">
-            정보 한 번 입력. 나머지는 자동.
-          </p>
         </div>
 
         <div className="mt-12 flex flex-col md:flex-row md:items-stretch gap-3 md:gap-2">
@@ -531,9 +522,6 @@ function Comparison() {
         <div className="max-w-2xl">
           <span className="text-sm font-semibold text-brand-700">비교</span>
           <h2 className="mt-2 text-3xl md:text-4xl font-bold tracking-tight">왜 굳이 새 도구를?</h2>
-          <p className="mt-4 text-slate-600">
-            기존 흐름을 깨지 않고, 운영 시간만 줄이는 데 집중했어요.
-          </p>
         </div>
 
         <div className="mt-10 grid md:grid-cols-3 gap-5 items-start">
@@ -593,11 +581,6 @@ function Waitlist() {
           <h2 className="mt-4 text-3xl md:text-4xl font-bold tracking-tight">
             먼저 써보고, 같이 만들어요.
           </h2>
-          <p className="mt-3 text-slate-600">
-            현재 ~ 2026년 8월 사이 베타로 운영합니다.
-            <br />
-            이메일 남겨주시면 출시 시 우선 초대해드려요.
-          </p>
           <WaitlistCounter className="mt-6" />
           <div className="mt-6">
             <a
