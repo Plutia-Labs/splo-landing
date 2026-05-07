@@ -5,6 +5,7 @@ import { Feature1Create } from "@/components/sections/Feature1Create";
 import { Feature2Apply } from "@/components/sections/Feature2Apply";
 import { Feature3Operate } from "@/components/sections/Feature3Operate";
 import { Feature4Verify } from "@/components/sections/Feature4Verify";
+import { Feature5Match } from "@/components/sections/Feature5Match";
 
 export const dynamic = "force-dynamic";
 
@@ -17,6 +18,7 @@ export default function HomePage() {
       <Feature2Apply />
       <Feature3Operate />
       <Feature4Verify />
+      <Feature5Match />
       <Waitlist />
       <FAQ />
       <Footer />
@@ -55,13 +57,12 @@ function Nav() {
 
 const PAIN_POINTS = [
   { icon: "📝", label: "모집글 재작성" },
+  { icon: "🔎", label: "트위터 서치" },
   { icon: "📋", label: "명단 정리" },
-  { icon: "💬", label: "DM 뒤지기" },
-  { icon: "📤", label: "N번 복붙" },
-  { icon: "💸", label: "입금 확인" },
+  { icon: "📨", label: "총대에게 DM 보내기" },
+  { icon: "💬", label: "DM 응대" },
+  { icon: "❓", label: "내 분철 진행 모름" },
   { icon: "📦", label: "송장 안내" },
-  { icon: "🔁", label: "주소 수정 응대" },
-  { icon: "🧾", label: "정산 정리" },
 ];
 
 function PainConveyor() {
@@ -106,6 +107,10 @@ function Hero() {
           <br />
           운영은 <span className="gradient-text">스플로</span>에서.
         </h1>
+
+        <p className="mt-5 md:mt-6 text-base md:text-lg text-slate-600">
+          분철자가 만든 — DM 부담 없이, 둘 다 편한 분철.
+        </p>
 
         <div className="mt-16 md:mt-20 flex justify-center">
           <a
@@ -244,7 +249,7 @@ function Footer() {
               height={32}
               className="rounded-lg ring-1 ring-slate-200"
             />
-            <span>스플로 · 분철 총대의 운영 비서</span>
+            <span>스플로 · DM 부담 없이, 둘 다 편한 분철</span>
           </div>
           <div className="flex items-center gap-5">
             <a href="mailto:hello@example.com" className="hover:text-ink">문의</a>
