@@ -113,6 +113,7 @@ export async function POST(request: Request) {
   }
 
   const includesReferralOther = referralSource === "other";
+  const includesReferralReferral = referralSource === "referral";
   if (includesReferralOther && !referralOther) {
     return NextResponse.json(
       { status: "missing_referral_other", error: "referral_other required" },
@@ -178,7 +179,10 @@ export async function POST(request: Request) {
     handle: handle || null,
     survey,
     referral_source: referralSource as ReferralSource,
-    referral_other: includesReferralOther ? referralOther : null,
+    referral_other:
+      includesReferralOther || (includesReferralReferral && referralOther)
+        ? referralOther
+        : null,
     platforms,
     platform_other: includesOther ? platformOther : null,
   });

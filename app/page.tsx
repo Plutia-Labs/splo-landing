@@ -1,10 +1,12 @@
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { WaitlistCounter } from "@/components/WaitlistCounter";
 import { Feature1Create } from "@/components/sections/Feature1Create";
 import { Feature2Apply } from "@/components/sections/Feature2Apply";
 import { Feature3Operate } from "@/components/sections/Feature3Operate";
 import { Feature4Verify } from "@/components/sections/Feature4Verify";
+import { Feature5Match } from "@/components/sections/Feature5Match";
 
 export const dynamic = "force-dynamic";
 
@@ -17,6 +19,7 @@ export default function HomePage() {
       <Feature2Apply />
       <Feature3Operate />
       <Feature4Verify />
+      <Feature5Match />
       <Waitlist />
       <FAQ />
       <Footer />
@@ -55,13 +58,12 @@ function Nav() {
 
 const PAIN_POINTS = [
   { icon: "📝", label: "모집글 재작성" },
+  { icon: "🔎", label: "트위터 서치" },
   { icon: "📋", label: "명단 정리" },
-  { icon: "💬", label: "DM 뒤지기" },
-  { icon: "📤", label: "N번 복붙" },
-  { icon: "💸", label: "입금 확인" },
+  { icon: "📨", label: "총대에게 DM 보내기" },
+  { icon: "💬", label: "DM 응대" },
+  { icon: "❓", label: "내 분철 진행 모름" },
   { icon: "📦", label: "송장 안내" },
-  { icon: "🔁", label: "주소 수정 응대" },
-  { icon: "🧾", label: "정산 정리" },
 ];
 
 function PainConveyor() {
@@ -106,6 +108,10 @@ function Hero() {
           <br />
           운영은 <span className="gradient-text">스플로</span>에서.
         </h1>
+
+        <p className="mt-5 md:mt-6 text-base md:text-lg text-slate-600">
+          분철자가 만든 — DM 부담 없이, 둘 다 편한 분철.
+        </p>
 
         <div className="mt-16 md:mt-20 flex justify-center">
           <a
@@ -167,7 +173,7 @@ function Waitlist() {
 const FAQS = [
   {
     q: "결제는 어떻게 받나요? 안전한가요?",
-    a: "DM으로 계좌를 주고받는 방식이 아니에요. ① 총대가 등록 단계에서 계좌를 입력해두면 ② 승인되어 참여가 확정된 분철자에게만 계좌가 노출됩니다. ③ 분철자가 입금 후 체크하면 총대에게 알림이 오고 ④ 총대는 대시보드에서 결제 확인을 한 번에 체크해요. 가상계좌·에스크로·환불 보장은 사용자 충분히 모인 뒤 v2에서 검토할 예정이에요.",
+    a: "DM으로 계좌를 주고받는 방식이 아니에요. ① 총대가 등록 단계에서 계좌를 입력해두면 ② 승인되어 참여가 확정된 분철자에게만 계좌가 노출됩니다. ③ 분철자가 입금 후 체크하면 총대에게 알림이 오고 ④ 총대는 대시보드에서 결제 확인을 한 번에 체크해요.",
   },
   {
     q: "마감 방식은 어떻게 정해요?",
@@ -184,10 +190,6 @@ const FAQS = [
   {
     q: "요금은요?",
     a: "베타 기간 동안은 사전 신청해주신 분에 한해 완전 무료로 이용 가능합니다. 이후 수익 모델 도입 시점에 사전 공지해요.",
-  },
-  {
-    q: "엔터사 IP나 저작권 문제는 없나요?",
-    a: "우리는 분철 자체를 중개하지 않고 운영 도구만 제공합니다. 공식 발매 SKU 한정으로 모집 페이지를 만들 수 있게 안내하고 있어요. 출시 전 1~2개 엔터사와 사전 커뮤니케이션도 검토 중입니다.",
   },
 ];
 
@@ -206,10 +208,6 @@ function FAQ() {
             <div>
               <p className="font-semibold text-ink">
                 가상계좌·에스크로·환불 보장은 <u>약속하지 않습니다.</u>
-              </p>
-              <p className="mt-1">
-                입금 확인 도구는 제공해 운영 부담을 줄여드리되, 분쟁 중재나 환불 보장은 사용자
-                충분히 모인 뒤 v2에서 검토할 예정이에요.
               </p>
             </div>
           </div>
@@ -244,12 +242,11 @@ function Footer() {
               height={32}
               className="rounded-lg ring-1 ring-slate-200"
             />
-            <span>스플로 · 분철 총대의 운영 비서</span>
+            <span>스플로 · DM 부담 없이, 둘 다 편한 분철</span>
           </div>
           <div className="flex items-center gap-5">
-            <a href="mailto:hello@example.com" className="hover:text-ink">문의</a>
-            <a href="#" className="hover:text-ink">개인정보 처리방침</a>
-            <a href="#" className="hover:text-ink">이용약관</a>
+            <a href="mailto:hello@splo.app" className="hover:text-ink">문의</a>
+            <Link href="/privacy" className="hover:text-ink">개인정보 처리방침</Link>
           </div>
         </div>
         <div className="mt-6 text-xs text-slate-400">© 2026 Plutia Labs</div>

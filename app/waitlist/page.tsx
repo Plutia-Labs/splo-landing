@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import { WaitlistForm } from "@/components/WaitlistForm";
 import { WaitlistCounter } from "@/components/WaitlistCounter";
@@ -68,8 +69,9 @@ export default function WaitlistPage() {
               <span>스플로 · 분철 총대의 운영 비서</span>
             </div>
             <div className="flex items-center gap-5">
-              <a href="/" className="hover:text-ink">메인</a>
-              <a href="mailto:hello@example.com" className="hover:text-ink">문의</a>
+              <Link href="/" className="hover:text-ink">메인</Link>
+              <Link href="/privacy" className="hover:text-ink">개인정보 처리방침</Link>
+              <a href="mailto:hello@splo.app" className="hover:text-ink">문의</a>
             </div>
           </div>
           <div className="mt-6 text-xs text-slate-400">© 2026 Plutia Labs</div>
