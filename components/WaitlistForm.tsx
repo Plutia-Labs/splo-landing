@@ -432,7 +432,16 @@ export function WaitlistForm() {
       </button>
 
       <p className="text-xs text-center text-slate-500">
-        제출하시면 <a href="#" className="underline">개인정보 처리방침</a>에 동의한 것으로 간주됩니다. 광고·스팸 발송하지 않아요.
+        제출하시면{" "}
+        <Link
+          href="/privacy"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline hover:text-ink"
+        >
+          개인정보 처리방침
+        </Link>
+        에 동의한 것으로 간주됩니다. 광고·스팸 발송하지 않아요.
       </p>
     </form>
   );

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { WaitlistCounter } from "@/components/WaitlistCounter";
 import { Feature1Create } from "@/components/sections/Feature1Create";
@@ -252,9 +253,8 @@ function Footer() {
             <span>스플로 · DM 부담 없이, 둘 다 편한 분철</span>
           </div>
           <div className="flex items-center gap-5">
-            <a href="mailto:hello@example.com" className="hover:text-ink">문의</a>
-            <a href="#" className="hover:text-ink">개인정보 처리방침</a>
-            <a href="#" className="hover:text-ink">이용약관</a>
+            <a href="mailto:hello@splo.app" className="hover:text-ink">문의</a>
+            <Link href="/privacy" className="hover:text-ink">개인정보 처리방침</Link>
           </div>
         </div>
         <div className="mt-6 text-xs text-slate-400">© 2026 Plutia Labs</div>
