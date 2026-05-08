@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import {
   WAITLIST_COUNT_EVENT,
@@ -210,6 +211,13 @@ export function WaitlistForm() {
           <strong className="font-bold text-emerald-900">스플로</strong>를
           알려주시면 더 빨리 선보일 수 있어요.
         </p>
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1 mt-2 text-sm font-medium text-emerald-800 underline underline-offset-2 hover:text-emerald-900"
+        >
+          스플로 메인 페이지에서 더 알아보기
+          <span aria-hidden="true">→</span>
+        </Link>
       </div>
     );
   }
@@ -232,13 +240,22 @@ export function WaitlistForm() {
           )}
           출시 소식 들어가면 동일한 이메일로 안내드릴게요.
         </p>
-        <button
-          type="button"
-          onClick={() => setState({ status: "idle" })}
-          className="text-xs text-slate-500 underline hover:text-slate-700"
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1 mt-2 text-sm font-medium text-brand-700 underline underline-offset-2 hover:text-ink"
         >
-          다른 이메일로 신청하기
-        </button>
+          스플로 메인 페이지에서 더 알아보기
+          <span aria-hidden="true">→</span>
+        </Link>
+        <div>
+          <button
+            type="button"
+            onClick={() => setState({ status: "idle" })}
+            className="text-xs text-slate-500 underline hover:text-slate-700"
+          >
+            다른 이메일로 신청하기
+          </button>
+        </div>
       </div>
     );
   }
