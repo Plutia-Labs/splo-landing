@@ -58,11 +58,6 @@ export function Feature2Apply() {
             <h2 className="fade-up stagger-1 mt-3 text-3xl md:text-5xl font-bold tracking-tight leading-[1.2]">
               대화 없이,
             </h2>
-            <p className="fade-up stagger-2 mt-3 text-base md:text-lg text-slate-600">
-              분철자 — 한 번만 저장하면, 다음부턴 정보 일괄 입력.
-              <br />
-              총대 — 필요한 항목만 설정하면, 분철자 정보 자동 정리.
-            </p>
           </div>
 
           <div
@@ -71,9 +66,11 @@ export function Feature2Apply() {
             className="mt-14 md:mt-20 grid lg:grid-cols-[1fr_auto_1.3fr] items-stretch gap-8 lg:gap-4"
           >
             <div className="fade-up flex flex-col justify-stretch lg:justify-stretch">
-              <div className="mx-auto lg:ml-auto lg:mr-0 w-full max-w-[280px] text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3 text-center lg:text-left">
-                분철자 화면 · 신청 폼
-              </div>
+              <p className="mx-auto lg:ml-auto lg:mr-0 w-full max-w-[280px] mb-4 text-base font-bold text-slate-600 leading-snug text-center lg:text-left">
+                한 번만 저장하면,
+                <br />
+                다음부턴 정보 일괄 입력.
+              </p>
               <div className="mx-auto lg:ml-auto lg:mr-0 w-full max-w-[280px] flex-1 rounded-3xl border border-slate-200 bg-white shadow-xl p-6 flex flex-col">
                 <div>
                   <div className="text-[11px] font-semibold uppercase tracking-wider text-brand-700">
@@ -109,6 +106,9 @@ export function Feature2Apply() {
                   </div>
                 </div>
               </div>
+              <div className="mx-auto lg:ml-auto lg:mr-0 w-full max-w-[280px] mt-3 text-xs font-semibold text-slate-400 uppercase tracking-wider text-center lg:text-left">
+                분철자 화면 · 신청 폼
+              </div>
             </div>
 
             <div className="fade-up stagger-1 hidden lg:flex flex-col items-center justify-center px-2">
@@ -120,9 +120,11 @@ export function Feature2Apply() {
             </div>
 
             <div className="fade-up stagger-2">
-              <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">
-                총대 화면 · 대시보드
-              </div>
+              <p className="mb-4 text-base font-bold text-slate-600 leading-snug">
+                필요한 항목만 설정하면,
+                <br />
+                분철자 정보 자동 정리.
+              </p>
 
               <div className="rounded-3xl border border-slate-200 bg-white shadow-xl overflow-hidden">
                 <div className="px-5 py-3 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
@@ -168,6 +170,9 @@ export function Feature2Apply() {
                     </span>
                   </div>
                 </div>
+              </div>
+              <div className="mt-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                총대 화면 · 대시보드
               </div>
             </div>
           </div>

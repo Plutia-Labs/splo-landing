@@ -49,26 +49,35 @@ export function Feature1Create() {
             <h2 className="fade-up stagger-1 mt-3 text-5xl font-bold tracking-tight leading-[1.2]">
               게시글은 한 번만,
             </h2>
-            <p className="fade-up stagger-2 mt-3 text-lg text-slate-600">
-              총대 — 마감 정보는 링크에서 자동 업데이트.
-              <br />
-              분철자 — 최신 게시글 찾을 필요 없이, 클릭 한 번으로 확인.
-            </p>
           </div>
 
           <div
             ref={bodyRef}
             data-in-view={bodyInView ? "true" : "false"}
-            className="fade-up relative mt-20 h-[480px]"
+            className="fade-up relative mt-20 h-[640px]"
           >
-            <div className="absolute left-[6%] top-4 -rotate-3 z-10">
+            <div className="absolute left-[6%] top-4 -rotate-3 z-10 flex flex-col items-center">
+              <p className="mb-4 text-base font-bold text-slate-600 text-center max-w-[300px] leading-snug">
+                마감 정보는 링크에서 자동 업데이트.
+              </p>
               <TweetCard />
+              <p className="mt-3 text-[10px] font-semibold text-slate-400 uppercase tracking-wider">
+                분철 모집글 · 트위터
+              </p>
             </div>
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-br from-brand-500 to-accent-500 shadow-lg float-y">
               <Sparkles size={24} className="text-white" />
             </div>
-            <div className="absolute right-[4%] top-12 rotate-2 z-30">
+            <div className="absolute right-[4%] top-12 rotate-2 z-30 flex flex-col items-center">
+              <p className="mb-4 text-base font-bold text-slate-600 text-center max-w-[300px] leading-snug">
+                최신 게시글 찾을 필요 없이,
+                <br />
+                클릭 한 번으로 확인.
+              </p>
               <LinkPageCard />
+              <p className="mt-3 text-[10px] font-semibold text-slate-400 uppercase tracking-wider">
+                분철 페이지 · 스플로
+              </p>
             </div>
           </div>
         </div>

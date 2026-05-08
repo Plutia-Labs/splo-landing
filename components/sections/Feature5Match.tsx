@@ -83,11 +83,6 @@ export function Feature5Match() {
             <h2 className="fade-up stagger-1 mt-3 text-3xl md:text-5xl font-bold tracking-tight leading-[1.2]">
               원하는 분철 없어도,
             </h2>
-            <p className="fade-up stagger-2 mt-3 text-base md:text-lg text-slate-600">
-              분철자 — 등록만 해두면, 새 분철 열릴 때 알림.
-              <br />
-              총대 — 모인 수요 풀 보고, 어떤 분철 열지 한눈에.
-            </p>
           </div>
 
           <div
@@ -98,35 +93,43 @@ export function Feature5Match() {
             <div
               className="
                 absolute left-1/2 top-0 -translate-x-1/2
-                md:left-[6%] md:top-12 md:translate-x-0 md:-rotate-3
+                md:left-[6%] md:top-0 md:translate-x-0 md:-rotate-3
                 w-[300px] md:w-[340px] z-10
-                rounded-3xl border border-slate-200 bg-white shadow-xl p-5
+                flex flex-col items-center
               "
             >
-              <div className="text-[11px] font-semibold uppercase tracking-wider text-brand-700">
-                원하는 분철 등록
-              </div>
+              <p className="mb-4 md:-mt-8 text-base font-bold text-slate-600 text-center max-w-[300px] leading-snug">
+                등록만 해두면, 새 분철 열릴 때 알림.
+              </p>
+              <div className="w-full rounded-3xl border border-slate-200 bg-white shadow-xl p-5">
+                <div className="text-[11px] font-semibold uppercase tracking-wider text-brand-700">
+                  원하는 분철 등록
+                </div>
 
-              <div className="mt-4 space-y-3">
-                <RegistrationField label="아티스트" value="그룹 A" filled />
-                <RegistrationField label="멤버" value="멤버 B" filled />
-                <RegistrationField
-                  label="앨범"
-                  value="The Album · Vol.2"
-                  filled
-                />
-                <RegistrationField label="가격대" value="~ ₩6,000" />
-              </div>
+                <div className="mt-4 space-y-3">
+                  <RegistrationField label="아티스트" value="그룹 A" filled />
+                  <RegistrationField label="멤버" value="멤버 B" filled />
+                  <RegistrationField
+                    label="앨범"
+                    value="The Album · Vol.2"
+                    filled
+                  />
+                  <RegistrationField label="가격대" value="~ ₩6,000" />
+                </div>
 
-              <button className="mt-5 w-full bg-brand-500 text-ink text-sm font-bold py-2.5 rounded-xl">
-                등록하기
-              </button>
+                <button className="mt-5 w-full bg-brand-500 text-ink text-sm font-bold py-2.5 rounded-xl">
+                  등록하기
+                </button>
+              </div>
+              <p className="mt-3 text-[10px] font-semibold text-slate-400 uppercase tracking-wider">
+                원하는 분철 등록 · 분철자 화면
+              </p>
             </div>
 
             <div
               className="
                 absolute left-[62%] top-[20px] -translate-x-1/2
-                md:left-[24%] md:top-4 md:translate-x-0 md:rotate-2
+                md:left-[19%] md:top-4 md:translate-x-0 md:rotate-2
                 w-[220px] md:w-[260px] z-20
                 rounded-2xl border border-slate-200 bg-white shadow-lg p-3
                 flex items-center gap-2 float-y
@@ -156,38 +159,48 @@ export function Feature5Match() {
             <div
               className="
                 absolute left-1/2 bottom-0 -translate-x-1/2
-                md:left-auto md:right-[4%] md:top-12 md:bottom-auto md:translate-x-0 md:rotate-2
+                md:left-auto md:right-[4%] md:top-0 md:bottom-auto md:translate-x-0 md:rotate-2
                 w-[320px] md:w-[380px] z-30
-                rounded-3xl border border-slate-200 bg-white shadow-2xl overflow-hidden
+                flex flex-col items-center
               "
             >
-              <div className="px-5 py-3 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
-                <div className="flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-rose-300" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-amber-300" />
-                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-300" />
+              <p className="mb-4 text-base font-bold text-slate-600 text-center max-w-[300px] leading-snug">
+                모인 수요 풀 보고,
+                <br />
+                어떤 분철 열지 한눈에.
+              </p>
+              <div className="w-full rounded-3xl border border-slate-200 bg-white shadow-2xl overflow-hidden">
+                <div className="px-5 py-3 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-2.5 h-2.5 rounded-full bg-rose-300" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-amber-300" />
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-300" />
+                  </div>
+                  <div className="text-[11px] text-slate-500 font-mono">
+                    splo.app/demand
+                  </div>
                 </div>
-                <div className="text-[11px] text-slate-500 font-mono">
-                  splo.app/demand
+
+                <div className="p-5">
+                  <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+                    수요 풀
+                  </div>
+
+                  <div className="mt-3 space-y-2">
+                    {DEMANDS.map((d, i) => (
+                      <DemandBlock key={d.album} demand={d} open={i === 0} />
+                    ))}
+                  </div>
+
+                  <button className="mt-4 w-full inline-flex items-center justify-center gap-2 bg-brand-500 text-ink text-sm font-bold py-2.5 rounded-xl">
+                    <Plus size={14} strokeWidth={3} />
+                    분철 개설
+                  </button>
                 </div>
               </div>
-
-              <div className="p-5">
-                <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
-                  수요 풀
-                </div>
-
-                <div className="mt-3 space-y-2">
-                  {DEMANDS.map((d, i) => (
-                    <DemandBlock key={d.album} demand={d} open={i === 0} />
-                  ))}
-                </div>
-
-                <button className="mt-4 w-full inline-flex items-center justify-center gap-2 bg-brand-500 text-ink text-sm font-bold py-2.5 rounded-xl">
-                  <Plus size={14} strokeWidth={3} />
-                  분철 개설
-                </button>
-              </div>
+              <p className="mt-3 text-[10px] font-semibold text-slate-400 uppercase tracking-wider">
+                수요 풀 · 총대 대시보드
+              </p>
             </div>
           </div>
         </div>

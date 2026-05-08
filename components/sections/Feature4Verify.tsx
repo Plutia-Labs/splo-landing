@@ -63,7 +63,7 @@ export function Feature4Verify() {
             <h2 className="fade-up stagger-1 mt-3 text-3xl md:text-5xl font-bold tracking-tight leading-[1.2]">
               증명까지,
             </h2>
-            <p className="fade-up stagger-2 mt-3 text-base md:text-lg text-slate-600">
+            <p className="fade-up stagger-2 mt-3 text-base md:text-lg font-bold text-slate-600 leading-snug">
               따로 정리 안 해도 한눈에.
             </p>
           </div>

@@ -74,10 +74,10 @@ export function Feature3Operate() {
             <h2 className="fade-up stagger-1 mt-3 text-3xl md:text-5xl font-bold tracking-tight leading-[1.2]">
               송장번호 한 번이면,
             </h2>
-            <p className="fade-up stagger-2 mt-3 text-base md:text-lg text-slate-600">
-              주문·배송·도착 단계별 자동 알림.
-              <span className="block mt-1.5 text-sm font-normal text-slate-500">
-                개인정보는 분철자에게 노출되지 않습니다.
+            <p className="fade-up stagger-2 mt-3 text-base md:text-lg font-bold text-slate-600 leading-snug">
+              단계별로 자동 알림.
+              <span className="block text-sm font-normal text-slate-500 mt-1.5">
+                개인정보는 노출되지 않습니다
               </span>
             </p>
           </div>
@@ -85,7 +85,7 @@ export function Feature3Operate() {
           <div
             ref={bodyRef}
             data-in-view={bodyInView ? "true" : "false"}
-            className="fade-up relative mt-16 md:mt-20 h-[500px] md:h-[540px] flex items-center justify-center"
+            className="fade-up relative mt-10 md:mt-12 h-[500px] md:h-[540px] flex items-center justify-center"
           >
             <div
               className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full border-2 border-brand-300 pulse-ring"
@@ -102,7 +102,8 @@ export function Feature3Operate() {
               style={{ animationDelay: "1.4s" }}
             />
 
-            <div className="relative z-20 rounded-3xl bg-white border border-slate-200 shadow-2xl px-7 py-6 w-[280px]">
+            <div className="relative z-20 w-[280px] flex flex-col items-center">
+              <div className="rounded-3xl bg-white border border-slate-200 shadow-2xl px-7 py-6 w-full">
               <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
                 송장번호
               </div>
@@ -134,6 +135,10 @@ export function Feature3Operate() {
                 label="택배 도착"
                 status="pending"
               />
+              </div>
+              <p className="mt-3 text-[10px] font-semibold text-slate-400 uppercase tracking-wider text-center">
+                총대 화면 · 송장 추적 / 분철자 푸시 · 단계 알림
+              </p>
             </div>
 
             {NOTIFY_CHIPS.map((chip) => (
