@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ChevronDown, Plus, Sparkles } from "lucide-react";
+import { ChevronDown, Plus } from "lucide-react";
 import { useInView } from "@/components/hooks/useInView";
 import { MobileStickyCarousel } from "@/components/MobileStickyCarousel";
 
@@ -150,10 +150,6 @@ export function Feature5Match() {
                   새 분철 열렸어요 — 그룹 A · The Album Vol.2
                 </div>
               </div>
-            </div>
-
-            <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 items-center justify-center w-14 h-14 rounded-full bg-gradient-to-br from-brand-500 to-accent-500 shadow-lg float-y">
-              <Sparkles size={24} className="text-white" />
             </div>
 
             <div

@@ -1,6 +1,5 @@
 "use client";
 
-import { Sparkles } from "lucide-react";
 import { useInView } from "@/components/hooks/useInView";
 import { MobileStickyCarousel } from "@/components/MobileStickyCarousel";
 
@@ -64,9 +63,6 @@ export function Feature1Create() {
               <p className="mt-3 text-[10px] font-semibold text-slate-400 uppercase tracking-wider">
                 분철 모집글 · 트위터
               </p>
-            </div>
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-14 h-14 rounded-full bg-gradient-to-br from-brand-500 to-accent-500 shadow-lg float-y">
-              <Sparkles size={24} className="text-white" />
             </div>
             <div className="absolute right-[4%] top-12 rotate-2 z-30 flex flex-col items-center">
               <p className="mb-4 text-base font-bold text-slate-600 text-center max-w-[300px] leading-snug">
