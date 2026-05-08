@@ -1,9 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { Bell, Check, Package, PackageCheck, Truck } from "lucide-react";
 import { useInView } from "@/components/hooks/useInView";
-import { MobileStickyCarousel } from "@/components/MobileStickyCarousel";
 
 const NOTIFY_CHIPS: Array<{
   handle: string;
@@ -30,36 +28,63 @@ export function Feature3Operate() {
 
   return (
     <section id="operate" className="bg-white">
-      <MobileStickyCarousel
-        step="STEP 03 · 운영"
-        title="송장번호 한 번이면,"
-        slides={[
-          {
-            caption: (
-              <>
-                단계별로 자동 알림.
-                <span className="block text-xs font-normal text-slate-500 mt-1.5">
-                  개인정보는 노출되지 않습니다
-                </span>
-              </>
-            ),
-            label: "총대 화면 · 송장 추적",
-            card: <TrackingCardCompact />,
-          },
-          {
-            caption: (
-              <>
-                단계별로 알림 도착.
-                <span className="block text-xs font-normal text-slate-500 mt-1.5">
-                  개인정보는 노출되지 않습니다
-                </span>
-              </>
-            ),
-            label: "분철자 푸시 · 단계 알림",
-            card: <NotificationCardCompact />,
-          },
-        ]}
-      />
+      <div className="md:hidden flex flex-col" style={{ height: "calc(100svh - 64px)" }}>
+        <div className="text-center px-5 pt-16 shrink-0">
+          <span className="inline-block text-sm font-semibold text-brand-700">
+            STEP 03 · 운영
+          </span>
+          <h2 className="mt-3 text-3xl font-bold tracking-tight leading-[1.2]">
+            송장번호 한 번이면,
+          </h2>
+          <p className="mt-3 text-base font-bold text-slate-600 leading-snug">
+            단계별로 자동 알림.
+            <span className="block text-xs font-normal text-slate-500 mt-1.5">
+              개인정보는 노출되지 않습니다
+            </span>
+          </p>
+        </div>
+
+        <div className="flex-1 mt-8 px-5 pb-8 flex flex-col items-center justify-center">
+          <div className="w-[280px] flex flex-col items-center">
+            <div className="rounded-3xl bg-white border border-slate-200 shadow-2xl px-7 py-6 w-full">
+              <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+                송장번호
+              </div>
+
+              <div className="mt-2 px-3 py-2.5 rounded-xl bg-brand-50 border border-brand-300 flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2 min-w-0">
+                  <Truck size={14} className="text-brand-700 shrink-0" />
+                  <span className="text-sm text-slate-400 font-mono font-semibold tracking-widest">
+                    ●●●●·●●●●·●●●●
+                  </span>
+                </div>
+                <Check
+                  size={14}
+                  strokeWidth={3}
+                  className="text-brand-700 shrink-0"
+                />
+              </div>
+
+              <div className="mt-5 text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+                자동 추적
+              </div>
+
+              <StepIndicator icon={Package} label="주문 완료" status="done" />
+              <div className="ml-4 my-1 w-px h-3 bg-slate-200" />
+              <StepIndicator icon={Truck} label="배송 시작" status="active" />
+              <div className="ml-4 my-1 w-px h-3 bg-slate-200" />
+              <StepIndicator
+                icon={PackageCheck}
+                label="택배 도착"
+                status="pending"
+              />
+            </div>
+            <p className="mt-3 text-[10px] font-semibold text-slate-400 uppercase tracking-wider text-center">
+              총대 화면 · 송장 추적
+            </p>
+          </div>
+        </div>
+      </div>
 
       <div className="hidden md:block relative overflow-hidden py-24 md:py-32">
         <div className="mx-auto max-w-6xl px-5">
@@ -169,107 +194,6 @@ export function Feature3Operate() {
         </div>
       </div>
     </section>
-  );
-}
-
-function TrackingCardCompact() {
-  return (
-    <div className="w-[280px] max-w-[82vw] rounded-2xl bg-white border border-slate-200 shadow-xl p-5">
-      <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
-        송장번호
-      </div>
-
-      <div className="mt-2 px-3 py-2 rounded-xl bg-brand-50 border border-brand-300 flex items-center justify-between gap-2">
-        <div className="flex items-center gap-2 min-w-0">
-          <Truck size={14} className="text-brand-700 shrink-0" />
-          <span className="text-xs text-slate-400 font-mono font-semibold tracking-widest">
-            ●●●●·●●●●·●●●●
-          </span>
-        </div>
-        <Check
-          size={14}
-          strokeWidth={3}
-          className="text-brand-700 shrink-0"
-        />
-      </div>
-
-      <div className="mt-4 text-[11px] font-semibold uppercase tracking-wider text-slate-500">
-        자동 추적
-      </div>
-
-      <StepIndicator icon={Package} label="주문 완료" status="done" />
-      <div className="ml-4 my-1 w-px h-3 bg-slate-200" />
-      <StepIndicator icon={Truck} label="배송 시작" status="active" />
-      <div className="ml-4 my-1 w-px h-3 bg-slate-200" />
-      <StepIndicator
-        icon={PackageCheck}
-        label="택배 도착"
-        status="pending"
-      />
-    </div>
-  );
-}
-
-function NotificationCardCompact() {
-  return (
-    <div className="w-[280px] max-w-[82vw] flex flex-col gap-2">
-      <PushNotification
-        time="방금"
-        title="배송 시작"
-        body="그룹 A · The Album Vol.1"
-        active
-      />
-      <PushNotification
-        time="어제"
-        title="주문 완료"
-        body="그룹 A · The Album Vol.1"
-      />
-      <PushNotification
-        time="3일 전"
-        title="입금 확인"
-        body="그룹 A · The Album Vol.1"
-      />
-    </div>
-  );
-}
-
-function PushNotification({
-  time,
-  title,
-  body,
-  active,
-}: {
-  time: string;
-  title: string;
-  body: string;
-  active?: boolean;
-}) {
-  return (
-    <div
-      className={`flex items-center gap-2.5 rounded-2xl border bg-white px-3 py-2.5 ${
-        active ? "border-brand-300 shadow-lg" : "border-slate-200 shadow-sm opacity-90"
-      }`}
-    >
-      <Image
-        src="/img/splo-icon.png"
-        alt="스플로"
-        width={32}
-        height={32}
-        className="w-8 h-8 rounded-lg ring-1 ring-slate-200 shrink-0"
-      />
-      <div className="flex-1 min-w-0">
-        <div className="flex items-center justify-between">
-          <div className="text-[11px] font-bold text-ink">스플로</div>
-          <div className="text-[10px] text-slate-400">{time}</div>
-        </div>
-        <div className="text-[12px] font-semibold text-ink leading-tight">
-          {title}
-        </div>
-        <div className="text-[11px] text-slate-500 leading-tight truncate">
-          {body}
-        </div>
-      </div>
-    </div>
   );
 }
 
