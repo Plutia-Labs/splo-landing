@@ -132,7 +132,7 @@ export function Feature5Match() {
                 md:left-[19%] md:top-4 md:translate-x-0 md:rotate-2
                 w-[220px] md:w-[260px] z-20
                 rounded-2xl border border-slate-200 bg-white shadow-lg p-3
-                flex items-center gap-2 float-y
+                flex items-center gap-2
               "
             >
               <Image
