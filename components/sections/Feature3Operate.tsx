@@ -19,6 +19,22 @@ const NOTIFY_CHIPS: Array<{
   { handle: "@han_h", tx: "0px", ty: "200px", delay: "1.05s" },
 ];
 
+// 모바일용: 화면 폭(~390px)·카드 폭 240px 기준. 칩이 카드 뒤에 위치하므로
+// 카드 외곽으로 빠져나오도록 거리 확대(±150~165px). 갯수 6개 유지.
+const NOTIFY_CHIPS_MOBILE: Array<{
+  handle: string;
+  tx: string;
+  ty: string;
+  delay: string;
+}> = [
+  { handle: "@han_a", tx: "-150px", ty: "-130px", delay: "0s" },
+  { handle: "@han_b", tx: "150px", ty: "-140px", delay: "0.15s" },
+  { handle: "@han_c", tx: "-160px", ty: "130px", delay: "0.3s" },
+  { handle: "@han_d", tx: "155px", ty: "140px", delay: "0.45s" },
+  { handle: "@han_e", tx: "0px", ty: "-180px", delay: "0.6s" },
+  { handle: "@han_f", tx: "0px", ty: "180px", delay: "0.75s" },
+];
+
 export function Feature3Operate() {
   const { ref: headRef, inView: headInView } = useInView<HTMLDivElement>();
   const { ref: bodyRef, inView: bodyInView } = useInView<HTMLDivElement>({
@@ -28,8 +44,8 @@ export function Feature3Operate() {
 
   return (
     <section id="operate" className="bg-white">
-      <div className="md:hidden flex flex-col" style={{ height: "calc(100svh - 64px)" }}>
-        <div className="text-center px-5 pt-16 shrink-0">
+      <div className="md:hidden flex flex-col relative overflow-hidden" style={{ height: "calc(100svh - 64px)" }}>
+        <div className="text-center px-5 pt-16 shrink-0 relative z-20">
           <span className="inline-block text-sm font-semibold text-brand-700">
             STEP 03 · 운영
           </span>
@@ -44,9 +60,53 @@ export function Feature3Operate() {
           </p>
         </div>
 
-        <div className="flex-1 mt-8 px-5 pb-8 flex flex-col items-center justify-center">
-          <div className="w-[280px] flex flex-col items-center">
-            <div className="rounded-3xl bg-white border border-slate-200 shadow-2xl px-7 py-6 w-full">
+        <div
+          ref={bodyRef}
+          data-in-view={bodyInView ? "true" : "false"}
+          className="flex-1 mt-8 px-5 pb-8 flex flex-col items-center justify-center relative"
+        >
+          <div
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full border-2 border-brand-300 pulse-ring z-0"
+            data-in-view={bodyInView ? "true" : "false"}
+          />
+          <div
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full border-2 border-brand-500 pulse-ring z-0"
+            data-in-view={bodyInView ? "true" : "false"}
+            style={{ animationDelay: "0.7s" }}
+          />
+          <div
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 rounded-full border-2 border-accent-500 pulse-ring z-0"
+            data-in-view={bodyInView ? "true" : "false"}
+            style={{ animationDelay: "1.4s" }}
+          />
+
+          {NOTIFY_CHIPS_MOBILE.map((chip) => (
+            <div
+              key={chip.handle}
+              className="notify-burst absolute left-1/2 top-1/2 z-10"
+              data-in-view={bodyInView ? "true" : "false"}
+              style={
+                {
+                  "--tx": chip.tx,
+                  "--ty": chip.ty,
+                  animationDelay: chip.delay,
+                } as React.CSSProperties
+              }
+            >
+              <div className="flex items-center gap-1 bg-white border border-slate-200 rounded-full pl-0.5 pr-2 py-0.5 shadow-lg whitespace-nowrap">
+                <span className="w-4 h-4 rounded-full bg-gradient-to-br from-brand-500 to-accent-500 grid place-items-center">
+                  <Bell size={8} className="text-white" />
+                </span>
+                <span className="text-[10px] font-semibold text-ink">
+                  {chip.handle}
+                </span>
+                <span className="text-[9px] text-slate-500">배송 시작</span>
+              </div>
+            </div>
+          ))}
+
+          <div className="relative z-20 w-[240px] flex flex-col items-center">
+            <div className="rounded-3xl bg-white border border-slate-200 shadow-2xl px-5 py-5 w-full">
               <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
                 송장번호
               </div>

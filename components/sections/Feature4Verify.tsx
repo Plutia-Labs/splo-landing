@@ -29,8 +29,13 @@ export function Feature4Verify() {
           </p>
         </div>
 
-        <div className="flex-1 mt-8 px-5 pb-8 flex items-center justify-center">
-          <div className="w-[300px] rounded-3xl bg-white border border-slate-200 shadow-2xl p-6">
+        <div
+          ref={bodyRef}
+          data-in-view={bodyInView ? "true" : "false"}
+          className="flex-1 mt-8 px-5 pb-8 flex items-center justify-center"
+        >
+          <div className="relative">
+            <div className="relative z-20 w-[300px] rounded-3xl bg-white border border-slate-200 shadow-2xl p-6">
             <div className="flex items-center justify-between">
               <span className="text-[10px] font-mono text-slate-400">
                 splo.app/host/@host_a
@@ -82,6 +87,11 @@ export function Feature4Verify() {
               <span className="ml-1 text-[10px] text-slate-500 font-medium">
                 참여자 평가 4.9
               </span>
+            </div>
+            </div>
+
+            <div className="absolute right-[-65px] top-[55px] rotate-[6deg] z-30 pointer-events-none">
+              <RecordCard album="앨범 X · Vol.1" date="2026.04" rate="100%" />
             </div>
           </div>
         </div>
