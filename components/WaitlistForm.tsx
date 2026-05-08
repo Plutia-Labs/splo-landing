@@ -12,7 +12,7 @@ type ReferralSource = "ad" | "referral" | "other";
 type Platform = "twitter" | "bunjang" | "other";
 
 const REFERRAL_OPTIONS: { value: ReferralSource; label: string }[] = [
-  { value: "ad", label: "광고" },
+  { value: "ad", label: "트위터" },
   { value: "referral", label: "지인 소개" },
   { value: "other", label: "기타" },
 ];
@@ -291,7 +291,6 @@ export function WaitlistForm() {
           placeholder="@your_handle"
           className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
         />
-        <p className="mt-1 text-xs text-slate-500">총대시면 분철 이력 검증·인터뷰 컨택에 사용해요.</p>
       </div>
 
       <div>
