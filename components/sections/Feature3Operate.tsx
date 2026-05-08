@@ -76,8 +76,9 @@ export function Feature3Operate() {
             </h2>
             <p className="fade-up stagger-2 mt-3 text-base md:text-lg text-slate-600">
               주문·배송·도착 단계별 자동 알림.
-              <br />
-              개인정보는 분철자에게 노출되지 않습니다.
+              <span className="block mt-1.5 text-sm font-normal text-slate-500">
+                개인정보는 분철자에게 노출되지 않습니다.
+              </span>
             </p>
           </div>
 

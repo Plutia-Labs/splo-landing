@@ -64,9 +64,7 @@ export function Feature4Verify() {
               증명까지,
             </h2>
             <p className="fade-up stagger-2 mt-3 text-base md:text-lg text-slate-600">
-              신청 전, 그동안의 이력을 한눈에.
-              <br />
-              후기, 따로 정리 안 해도 자동 누적.
+              따로 정리 안 해도 한눈에.
             </p>
           </div>
 

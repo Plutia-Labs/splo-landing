@@ -103,6 +103,7 @@ export function WaitlistForm() {
     }
 
     const includesReferralOther = referralSource === "other";
+    const includesReferralReferral = referralSource === "referral";
     const referralOtherTrimmed = referralOther.trim();
     if (includesReferralOther && !referralOtherTrimmed) {
       setState({
@@ -142,7 +143,10 @@ export function WaitlistForm() {
           handle,
           survey,
           referralSource,
-          referralOther: includesReferralOther ? referralOtherTrimmed : "",
+          referralOther:
+            includesReferralOther || includesReferralReferral
+              ? referralOtherTrimmed
+              : "",
           platforms,
           platformOther: includesOther ? platformOtherTrimmed : "",
         }),
@@ -366,6 +370,20 @@ export function WaitlistForm() {
             placeholder="어떻게 알게 되셨나요?"
             className="mt-2 w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
           />
+        )}
+        {referralSource === "referral" && (
+          <div className="mt-2">
+            <input
+              type="text"
+              value={referralOther}
+              onChange={(e) => setReferralOther(e.target.value)}
+              placeholder="지인의 트위터 핸들 또는 이메일 등"
+              className="w-full px-4 py-3 rounded-xl border border-slate-300 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500"
+            />
+            <p className="mt-1 text-xs text-slate-500">
+              선택 항목 — 비워두셔도 신청 가능해요.
+            </p>
+          </div>
         )}
       </div>
 
