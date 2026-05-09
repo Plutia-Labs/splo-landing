@@ -189,6 +189,14 @@ export function WaitlistForm() {
           detail: { count },
         }),
       );
+      if (typeof window !== "undefined" && typeof window.gtag === "function") {
+        window.gtag("event", "sign_up", {
+          method: "waitlist",
+          role,
+          referral_source: referralSource,
+          platforms: platforms.join(","),
+        });
+      }
       setState({ status: "success", count });
     } catch (err) {
       console.error("[WaitlistForm] submit failed", err);
