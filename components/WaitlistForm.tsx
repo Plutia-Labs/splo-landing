@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
+import { track } from "@vercel/analytics";
 import {
   WAITLIST_COUNT_EVENT,
   type WaitlistCountEventDetail,
@@ -189,12 +190,30 @@ export function WaitlistForm() {
           detail: { count },
         }),
       );
-      if (typeof window !== "undefined" && typeof window.gtag === "function") {
-        window.gtag("event", "sign_up", {
+      if (typeof window !== "undefined") {
+        const platformsJoined = platforms.join(",");
+        if (typeof window.gtag === "function") {
+          window.gtag("event", "sign_up", {
+            method: "waitlist",
+            role,
+            referral_source: referralSource,
+            platforms: platformsJoined,
+          });
+        }
+        if (typeof window.fbq === "function") {
+          window.fbq("track", "CompleteRegistration", {
+            content_name: "splo_waitlist",
+            method: "waitlist",
+            role,
+            referral_source: referralSource,
+            platforms: platformsJoined,
+          });
+        }
+        track("waitlist_submit", {
           method: "waitlist",
           role,
           referral_source: referralSource,
-          platforms: platforms.join(","),
+          platforms: platformsJoined,
         });
       }
       setState({ status: "success", count });
