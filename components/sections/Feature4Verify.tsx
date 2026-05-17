@@ -7,16 +7,13 @@ import { useInView } from "@/components/hooks/useInView";
 export function Feature4Verify() {
   const { ref: headRef, inView: headInView } = useInView<HTMLDivElement>();
   const { ref: bodyRef, inView: bodyInView } = useInView<HTMLDivElement>({
-    threshold: 0.2,
-    rootMargin: "0px 0px -15% 0px",
+    threshold: 0,
+    rootMargin: "0px 0px -10% 0px",
   });
 
   return (
     <section id="verify" className="bg-paper md:border-y md:border-slate-200">
-      <div
-        className="md:hidden flex flex-col"
-        style={{ height: "calc(100svh - 64px)" }}
-      >
+      <div className="md:hidden flex flex-col min-h-dvh">
         <div className="text-center px-5 pt-16 shrink-0">
           <span className="inline-block text-sm font-semibold text-brand-700">
             STEP 04 · 이력
@@ -57,14 +54,8 @@ export function Feature4Verify() {
             </div>
 
             <div className="mt-5 grid grid-cols-2 gap-3">
-              <Stat label="누적 운영" target={12} suffix="회" inView={bodyInView} />
-              <Stat
-                label="완료율"
-                target={100}
-                suffix="%"
-                inView={bodyInView}
-                accent
-              />
+              <Stat label="누적 운영" target={12} suffix="회" />
+              <Stat label="완료율" target={100} suffix="%" accent />
             </div>
 
             <div className="mt-5 pt-4 border-t border-slate-100">
@@ -152,11 +143,18 @@ export function Feature4Verify() {
               </div>
 
               <div className="mt-5 grid grid-cols-2 gap-3">
-                <Stat label="누적 운영" target={12} suffix="회" inView={bodyInView} />
+                <Stat
+                  label="누적 운영"
+                  target={12}
+                  suffix="회"
+                  animate
+                  inView={bodyInView}
+                />
                 <Stat
                   label="완료율"
                   target={100}
                   suffix="%"
+                  animate
                   inView={bodyInView}
                   accent
                 />
@@ -195,18 +193,21 @@ function Stat({
   label,
   target,
   suffix,
-  inView,
+  inView = false,
+  animate = false,
   accent,
 }: {
   label: string;
   target: number;
   suffix: string;
-  inView: boolean;
+  inView?: boolean;
+  animate?: boolean;
   accent?: boolean;
 }) {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(animate ? 0 : target);
 
   useEffect(() => {
+    if (!animate) return;
     if (!inView) return;
     let start = 0;
     const duration = 1200;
@@ -221,7 +222,7 @@ function Stat({
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [inView, target]);
+  }, [animate, inView, target]);
 
   return (
     <div
@@ -239,7 +240,7 @@ function Stat({
           accent ? "text-brand-700" : "text-ink"
         }`}
       >
-        {value}
+        {animate ? value : target}
         <span className="text-base font-bold ml-0.5">{suffix}</span>
       </div>
     </div>
