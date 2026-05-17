@@ -98,30 +98,29 @@ export async function POST(request: Request) {
     );
   }
 
-  if (!["host", "joiner", "both"].includes(role)) {
-    return NextResponse.json(
-      { status: "error", error: "invalid role" },
-      { status: 400 },
-    );
-  }
+  // 이메일만 받는 인라인 폼이 기본. role/referral/platform 은 더 이상 필수가 아니다.
+  // (구 /waitlist 페이지 폼이 보내오면 그대로 저장 — 하위호환)
+  // role 컬럼은 DB NOT NULL 이라 미입력 시 'both' 로 기본 채움 (스키마 변경 불필요).
+  const resolvedRole = ["host", "joiner", "both"].includes(role)
+    ? (role as "host" | "joiner" | "both")
+    : "both";
 
-  if (!(REFERRAL_SOURCES as readonly string[]).includes(referralSource)) {
-    return NextResponse.json(
-      { status: "invalid_referral", error: "invalid referral source" },
-      { status: 400 },
-    );
-  }
-
+  const hasReferral = (REFERRAL_SOURCES as readonly string[]).includes(
+    referralSource,
+  );
   const includesReferralOther = referralSource === "other";
   const includesReferralReferral = referralSource === "referral";
-  if (includesReferralOther && !referralOther) {
+  // referral_other 는 referral 이 들어왔고 'other' 일 때만 필수 (구 폼 보호용)
+  if (hasReferral && includesReferralOther && !referralOther) {
     return NextResponse.json(
       { status: "missing_referral_other", error: "referral_other required" },
       { status: 400 },
     );
   }
 
-  if (platforms.length === 0 || platforms.length !== platformsRaw.length) {
+  // platforms 가 들어온 경우에만 유효성 검사 (값이 오면 알 수 없는 값은 거른다)
+  const hasPlatforms = platformsRaw.length > 0;
+  if (hasPlatforms && platforms.length !== platformsRaw.length) {
     return NextResponse.json(
       { status: "invalid_platforms", error: "invalid platforms" },
       { status: 400 },
@@ -129,7 +128,7 @@ export async function POST(request: Request) {
   }
 
   const includesOther = platforms.includes("other");
-  if (includesOther && !platformOther) {
+  if (hasPlatforms && includesOther && !platformOther) {
     return NextResponse.json(
       { status: "missing_platform_other", error: "platform_other required" },
       { status: 400 },
@@ -175,16 +174,17 @@ export async function POST(request: Request) {
 
   const { error: insertError } = await supabase.from("waitlist").insert({
     email,
-    role: role as WaitlistRole,
+    role: resolvedRole as WaitlistRole,
     handle: handle || null,
     survey,
-    referral_source: referralSource as ReferralSource,
+    referral_source: hasReferral ? (referralSource as ReferralSource) : null,
     referral_other:
-      includesReferralOther || (includesReferralReferral && referralOther)
+      hasReferral &&
+      (includesReferralOther || (includesReferralReferral && referralOther))
         ? referralOther
         : null,
-    platforms,
-    platform_other: includesOther ? platformOther : null,
+    platforms: hasPlatforms ? platforms : null,
+    platform_other: hasPlatforms && includesOther ? platformOther : null,
   });
 
   if (insertError) {

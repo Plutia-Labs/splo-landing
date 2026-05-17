@@ -38,13 +38,13 @@ const NOTIFY_CHIPS_MOBILE: Array<{
 export function Feature3Operate() {
   const { ref: headRef, inView: headInView } = useInView<HTMLDivElement>();
   const { ref: bodyRef, inView: bodyInView } = useInView<HTMLDivElement>({
-    threshold: 0.2,
-    rootMargin: "0px 0px -15% 0px",
+    threshold: 0,
+    rootMargin: "0px 0px -10% 0px",
   });
 
   return (
     <section id="operate" className="bg-white">
-      <div className="md:hidden flex flex-col relative overflow-hidden" style={{ height: "calc(100svh - 64px)" }}>
+      <div className="md:hidden flex flex-col relative overflow-hidden min-h-dvh">
         <div className="text-center px-5 pt-16 shrink-0 relative z-20">
           <span className="inline-block text-sm font-semibold text-brand-700">
             STEP 03 · 운영

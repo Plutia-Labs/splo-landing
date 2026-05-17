@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { WaitlistCounter } from "@/components/WaitlistCounter";
+import { WaitlistInlineForm } from "@/components/WaitlistInlineForm";
 import { Feature1Create } from "@/components/sections/Feature1Create";
 import { Feature2Apply } from "@/components/sections/Feature2Apply";
 import { Feature3Operate } from "@/components/sections/Feature3Operate";
@@ -44,7 +45,7 @@ function Nav() {
         </a>
         <div className="flex items-center gap-3">
           <a
-            href="/waitlist"
+            href="#waitlist"
             className="cta-btn inline-flex items-center gap-2 bg-brand-500 text-ink text-sm font-semibold px-4 py-2 rounded-xl"
           >
             사전 신청
@@ -113,14 +114,8 @@ function Hero() {
           분철자가 만든 — DM 부담 없이, 둘 다 편한 분철.
         </p>
 
-        <div className="mt-16 md:mt-20 flex justify-center">
-          <a
-            href="/waitlist"
-            className="cta-btn inline-flex items-center gap-2 bg-brand-500 text-ink font-semibold px-6 py-3.5 rounded-xl"
-          >
-            사전 신청하고 우선 초대받기
-            <ArrowRight size={16} />
-          </a>
+        <div className="mt-12 md:mt-16">
+          <WaitlistInlineForm variant="hero" idPrefix="hero" />
         </div>
       </div>
 
@@ -140,7 +135,7 @@ function Hero() {
 
 function Waitlist() {
   return (
-    <section id="waitlist" className="py-20 md:py-28">
+    <section id="waitlist" className="py-20 md:py-28 scroll-mt-20">
       <div className="mx-auto max-w-3xl px-5">
         <div className="bg-white border border-slate-200 rounded-2xl p-8 md:p-10 text-center">
           <span className="inline-flex items-center gap-2 bg-brand-50 text-brand-700 text-xs font-semibold px-3 py-1 rounded-full">
@@ -155,14 +150,8 @@ function Waitlist() {
             이메일 남겨주시면 출시 시 우선 초대해드려요.
           </p>
           <WaitlistCounter className="mt-6" />
-          <div className="mt-6">
-            <a
-              href="/waitlist"
-              className="cta-btn inline-flex items-center gap-2 bg-brand-500 text-ink font-semibold px-6 py-3.5 rounded-xl"
-            >
-              사전 신청하기
-              <ArrowRight size={16} />
-            </a>
+          <div className="mt-8">
+            <WaitlistInlineForm variant="section" idPrefix="section" />
           </div>
         </div>
       </div>
