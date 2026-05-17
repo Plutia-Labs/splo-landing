@@ -227,7 +227,9 @@ export function WaitlistInlineForm({
         >
           개인정보 처리방침
         </Link>
-        에 동의한 것으로 간주됩니다. 광고·스팸 발송하지 않아요.
+        에 동의한 것으로 간주됩니다.
+        <br />
+        광고·스팸 발송하지 않아요.
       </p>
     </form>
   );
